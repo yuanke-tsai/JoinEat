@@ -1,0 +1,29 @@
+.searchBarPosition {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+    .searchBar {
+        position: relative;
+        width: 86vw;
+        height: 3.5vh;
+        border: 1px solid #E0E0E0;
+        border-radius: 15px;
+        .searchIconStartPoint {
+            display: flex;
+            align-items: center;
+            width: 90%;
+            height: 100%;
+            position: absolute;
+            left: 3.3%;
+            .searchIcon {
+                width: 15px;
+                height: 15px;
+            }
+            .input {
+                width: 100%;
+                margin-left: 3.5%;
+                border: none;
+            }
+        }
+    }
+}
