@@ -22,17 +22,20 @@ function Map({ center, zoom }) {
         return;
       }
 
-      e.stop(); // prevent the default popup window
+      // prevent the default popup window
+      e.stop();
+
       service.getDetails({
         placeId: placeId
       }, (place, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK
             &&
-            place.types.includes('restaurant')
+            (place.types.includes('restaurant') || place.types.includes('cafe'))
           ) {
             const latitude = place.geometry.location.lat();
             const longitude = place.geometry.location.lng();
-            alert(`${place.name} (${latitude}, ${longitude})`)
+            alert(`${place.name}\n(${latitude}, ${longitude})`)
           } else {
             alert('請點擊餐廳');
           }
