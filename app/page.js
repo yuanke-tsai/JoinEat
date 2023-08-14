@@ -11,7 +11,6 @@ export default function Home() {
       <SearchBar />
       <Map />
       <SearchBarById />
-      {/* <SearchBar /> */}
       <Groups />
     </div>
   );
