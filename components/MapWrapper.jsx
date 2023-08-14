@@ -8,11 +8,25 @@ function Map({ center, zoom }) {
   const ref = useRef();
 
   useEffect(() => {
-    new window.google.maps.Map(ref.current, {
+    const map = new google.maps.Map(ref.current, {
       center,
       zoom,
       disableDefaultUI: true,
     });
+
+    new google.maps.Marker({
+      position: center,
+      map,
+      title: 'Your Location',
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 10,
+        fillOpacity: 1,
+        strokeWeight: 2,
+        fillColor: '#5384ED',
+        strokeColor: '#ffffff',
+      },
+    })
   });
 
   return <div ref={ref} className={styles.map} />;
