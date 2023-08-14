@@ -1,7 +1,17 @@
+'use client'
+
 import Map from '@/components/Map';
+import Groups from '@/components/Groups';
+import SearchBar from '@/components/SearchBar';
+import SearchBarById from '@/components/SearchBarById';
 
 export default function Home() {
   return (
-    <Map />
+    <div style={{ position: 'relative' }}>
+      <SearchBar />
+      <Map />
+      <SearchBarById />
+      <Groups />
+    </div>
   );
 }
