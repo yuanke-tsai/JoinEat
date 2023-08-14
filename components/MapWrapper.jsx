@@ -14,10 +14,35 @@ function Map({ center, zoom }) {
       disableDefaultUI: true,
     });
 
+    const service = new google.maps.places.PlacesService(map);
+
+    map.addListener('click', function(e) {
+      const placeId = e.placeId;
+      if (!placeId) {
+        return;
+      }
+
+      e.stop(); // prevent the default popup window
+      service.getDetails({
+        placeId: placeId
+      }, (place, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK
+            &&
+            place.types.includes('restaurant')
+          ) {
+            const latitude = place.geometry.location.lat();
+            const longitude = place.geometry.location.lng();
+            alert(`${place.name} (${latitude}, ${longitude})`)
+          } else {
+            alert('請點擊餐廳');
+          }
+        });
+    });
+
     new google.maps.Marker({
       position: center,
       map,
-      title: 'Your Location',
+      title: '你的位置',
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 10,
@@ -61,7 +86,13 @@ export default function MapWrapper() {
   };
 
   return (
-    <Wrapper apiKey={process.env.NEXT_PUBLIC_API_KEY} render={render}>
+    <Wrapper
+      language="zh-TW"
+      region="TW"
+      apiKey={process.env.NEXT_PUBLIC_API_KEY}
+      render={render}
+      libraries={['places']}
+    >
       <Map center={position} zoom={18}/>
     </Wrapper>
   )
