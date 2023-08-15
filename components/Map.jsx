@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import styles from '@/styles/map.module.scss'
+import styles from "@/styles/map.module.scss";
 
 export default function Map({ center, zoom }) {
   const marker = useRef(null);
@@ -7,20 +7,20 @@ export default function Map({ center, zoom }) {
   const ref = useRef();
 
   useEffect(() => {
-    const map = new google.maps.Map(ref.current, {
+    const map = new window.google.maps.Map(ref.current, {
       center,
       zoom,
       disableDefaultUI: true,
     });
 
-    const service = new google.maps.places.PlacesService(map);
+    const service = new window.google.maps.places.PlacesService(map);
 
-    map.addListener('click', function(e) {
+    map.addListener("click", (e) => {
       if (marker.current) {
         marker.current.setMap(null);
       }
 
-      const placeId = e.placeId;
+      const { placeId } = e;
       if (!placeId) {
         return;
       }
@@ -28,41 +28,42 @@ export default function Map({ center, zoom }) {
       // prevent the default popup window
       e.stop();
 
-      service.getDetails({
-        placeId: placeId
-      }, (place, status) => {
+      service.getDetails(
+        {
+          placeId,
+        },
+        (place, status) => {
           if (
-            status === google.maps.places.PlacesServiceStatus.OK
-            &&
-            (place.types.includes('restaurant') || place.types.includes('cafe'))
+            status === window.google.maps.places.PlacesServiceStatus.OK &&
+            (place.types.includes("restaurant") || place.types.includes("cafe"))
           ) {
             const latitude = place.geometry.location.lat();
             const longitude = place.geometry.location.lng();
-            marker.current = new google.maps.Marker({
+            marker.current = new window.google.maps.Marker({
               position: { lat: latitude, lng: longitude },
               map,
-            })
-            // setFocusMarker(marker);
-            alert(`${place.name}\n(${latitude}, ${longitude})`)
+            });
+            alert(`${place.name}\n(${latitude}, ${longitude})`);
           } else {
-            alert('請點擊餐廳');
+            alert("請點擊餐廳");
           }
-        });
+        },
+      );
     });
 
-    new google.maps.Marker({
+    const userMarker = new window.google.maps.Marker({
       position: center,
       map,
-      title: '你的位置',
+      title: "你的位置",
       icon: {
-        path: google.maps.SymbolPath.CIRCLE,
+        path: window.google.maps.SymbolPath.CIRCLE,
         scale: 10,
         fillOpacity: 1,
         strokeWeight: 2,
-        fillColor: '#5384ED',
-        strokeColor: '#ffffff',
+        fillColor: "#5384ED",
+        strokeColor: "#ffffff",
       },
-    })
+    });
   });
 
   return <div ref={ref} className={styles.map} />;

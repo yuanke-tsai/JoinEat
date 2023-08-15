@@ -1,57 +1,57 @@
 .group {
+  display: flex;
+  width: 86vw;
+  height: 8.3vh;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  .basicInfo {
     display: flex;
-    width: 86vw;
-    height: 8.3vh;
-    border: 1px solid #E0E0E0;
-    border-radius: 15px;
-    .basicInfo {
-        display: flex;
-        width: 75%;
-        height: 100%;
-        align-items: center;
-        .userImg {
-            width: 40px;
-            height: 40px;
-            margin-left: 9%;
-        }
-        .time {
-            margin-left: 5%;
-            background-color: white;
-        }
-        .names {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-left: 5%;
-            height: 100%;
-            .nameGroup {
-                width: 100%;
-            }
-            .nameResturant {
-                width: 100%;
-            }
-        }
+    width: 75%;
+    height: 100%;
+    align-items: center;
+    .userImg {
+      width: 40px;
+      height: 40px;
+      margin-left: 9%;
     }
-    .detailInfo {
-        position: relative;
-        width: 25%;
-        height: 100%;
-        .peopleLimit {
-            display: flex;
-            align-items: center;
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            .usersIcon {
-                margin-left: 1px;
-                width: 15px;
-                height: 15px;
-            }
-        }
-        .distance {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-        }
+    .time {
+      margin-left: 5%;
+      background-color: white;
     }
+    .names {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 5%;
+      height: 100%;
+      .nameGroup {
+        width: 100%;
+      }
+      .nameResturant {
+        width: 100%;
+      }
+    }
+  }
+  .detailInfo {
+    position: relative;
+    width: 25%;
+    height: 100%;
+    .peopleLimit {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      .usersIcon {
+        margin-left: 1px;
+        width: 15px;
+        height: 15px;
+      }
+    }
+    .distance {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+    }
+  }
 }

@@ -1,15 +1,18 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
-import styles from '@/styles/map.module.scss'
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
+import styles from "@/styles/map.module.scss";
 import Map from "./Map";
 
 export default function MapWrapper() {
   const [position, setPosition] = useState({ lat: 0, lng: 0 });
 
-  function success(position) {
-    setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+  function success(pos) {
+    setPosition({
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+    });
   }
 
   function error() {
@@ -27,11 +30,12 @@ export default function MapWrapper() {
   function render(status) {
     if (status === Status.LOADING) {
       return <div className={styles.map}>Loading Map...</div>;
-    } else if (status === Status.FAILURE) {
-      return 'Error';
+    }
+    if (status === Status.FAILURE) {
+      return "Error";
     }
     return null;
-  };
+  }
 
   return (
     <Wrapper
@@ -39,9 +43,9 @@ export default function MapWrapper() {
       region="TW"
       apiKey={process.env.NEXT_PUBLIC_API_KEY}
       render={render}
-      libraries={['places']}
+      libraries={["places"]}
     >
-      <Map center={position} zoom={18}/>
+      <Map center={position} zoom={18} />
     </Wrapper>
-  )
+  );
 }
