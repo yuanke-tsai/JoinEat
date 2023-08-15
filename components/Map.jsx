@@ -2,6 +2,8 @@ import { useRef, useEffect } from "react";
 import styles from '@/styles/map.module.scss'
 
 export default function Map({ center, zoom }) {
+  const marker = useRef(null);
+
   const ref = useRef();
 
   useEffect(() => {
@@ -14,6 +16,10 @@ export default function Map({ center, zoom }) {
     const service = new google.maps.places.PlacesService(map);
 
     map.addListener('click', function(e) {
+      if (marker.current) {
+        marker.current.setMap(null);
+      }
+
       const placeId = e.placeId;
       if (!placeId) {
         return;
@@ -32,6 +38,11 @@ export default function Map({ center, zoom }) {
           ) {
             const latitude = place.geometry.location.lat();
             const longitude = place.geometry.location.lng();
+            marker.current = new google.maps.Marker({
+              position: { lat: latitude, lng: longitude },
+              map,
+            })
+            // setFocusMarker(marker);
             alert(`${place.name}\n(${latitude}, ${longitude})`)
           } else {
             alert('請點擊餐廳');
