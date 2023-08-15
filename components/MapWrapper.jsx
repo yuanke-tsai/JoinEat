@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import styles from "@/styles/map.module.scss";
 import Map from "./Map";
+import SearchBar from "./SearchBar";
 
 export default function MapWrapper() {
   const [position, setPosition] = useState({ lat: 0, lng: 0 });
@@ -38,14 +39,17 @@ export default function MapWrapper() {
   }
 
   return (
-    <Wrapper
-      language="zh-TW"
-      region="TW"
-      apiKey={process.env.NEXT_PUBLIC_API_KEY}
-      render={render}
-      libraries={["places"]}
-    >
-      <Map center={position} zoom={18} />
-    </Wrapper>
+    <>
+      <SearchBar center={position} />
+      <Wrapper
+        language="zh-TW"
+        region="TW"
+        apiKey={process.env.NEXT_PUBLIC_API_KEY}
+        render={render}
+        libraries={["places"]}
+      >
+        <Map center={position} zoom={18} />
+      </Wrapper>
+    </>
   );
 }

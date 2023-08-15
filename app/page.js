@@ -8,7 +8,6 @@ import SearchBarById from "@/components/SearchBarById";
 export default function Home() {
   return (
     <div style={{ position: "relative" }}>
-      <SearchBar />
       <MapWrapper />
       <SearchBarById />
       <Groups />
