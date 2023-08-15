@@ -1,44 +1,27 @@
+.extend {
+  width: 80%;
+}
+
 .searchBar {
   z-index: 999;
-  display: flex;
   position: absolute;
-  top: 30px;
-  left: 30px;
-  .searchBarUNExtend {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    min-width: 30px;
-    height: 30px;
-    border: 1px solid #e0e0e0;
-    border-radius: 100px;
+  top: 15px;
+  left: 15px;
+  background-color: white;
+  height: 30px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 2px black;
+
+  .searchIcon {
+    margin: 7.5px;
   }
-  .searchBarExtend {
-    display: flex;
-    position: relative;
-    align-items: center;
-    background-color: white;
-    width: 67vw;
-    height: 30px;
-    border: 1px solid #e0e0e0;
-    border-radius: 100px;
-    .searchIconStartPoint {
-      display: flex;
-      align-items: center;
-      width: 90%;
-      height: 100%;
-      position: absolute;
-      left: 3.3%;
-      .searchIcon {
-        width: 15px;
-        height: 15px;
-      }
-      .input {
-        width: 100%;
-        margin-left: 3.5%;
-        border: none;
-      }
-    }
+
+  .input {
+    width: 80%;
+    border: none;
+    outline: none;
   }
 }
