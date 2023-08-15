@@ -6,7 +6,8 @@ import SearchBar from "@/components/SearchBar";
 import SearchBarById from "@/components/SearchBarById";
 import NewGroupButton from "@/components/NewGroupButton";
 import NewGroupTime from "@/components/NewGroupTime";
-import Hour from "@/components/Hour";
+import NewGroupDate from "@/components/NewGroupDate";
+import NewGroupLimit from "@/components/NewGroupLimit";
 
 export default function Home() {
   // isNewGroup? -> render other components
@@ -18,6 +19,8 @@ export default function Home() {
       <Groups />
       <NewGroupButton />
       <NewGroupTime />
+      <NewGroupDate />
+      <NewGroupLimit />
     </div>
   );
 }

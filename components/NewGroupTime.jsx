@@ -1,21 +1,60 @@
 import { useState } from "react";
-import Hour from "./Hour";
-import Minute from "./Minute";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import styles from "../styles/newGroupTime.module.scss";
 
 export default function NewGroupTime() {
-  const [selectHour, setSelectHour] = useState("00");
-  const [selectMinute, setSelectMinute] = useState("00");
-
+  const hourOptions = [
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+  ];
+  const minuteOptions = [
+    "00",
+    "05",
+    "10",
+    "15",
+    "20",
+    "25",
+    "30",
+    "35",
+    "40",
+    "45",
+    "50",
+    "55",
+  ];
+  const [selectHour, setSelectHour] = useState(hourOptions[13]);
+  const [selectMinute, setSelectMinute] = useState(minuteOptions[6]);
   console.log(selectMinute);
 
-  const [isVisibleHours, setIsVisibleHours] = useState(false);
-  const [isVisibleMinutes, setIsVisibleMinutes] = useState(false);
-  const handleClickHour = () => {
-    setIsVisibleHours(true);
+  const handleClickHour = (e) => {
+    setSelectHour(e.target.value);
   };
-  const handleClickMinute = () => {
-    setIsVisibleMinutes(true);
+  const handleClickMinute = (e) => {
+    setSelectMinute(e.target.value);
   };
   return (
     <div className={styles.groupToCenter}>
@@ -24,72 +63,37 @@ export default function NewGroupTime() {
           <p>集合時間</p>
         </div>
         <div className={styles.timeSelector}>
-          <button
-            className={styles.hourSelect}
-            type="button"
-            onClick={handleClickHour}
-          >
-            {selectHour}
-          </button>
-          {/* {isVisibleHours === true && (
-            <Hour
-              setSelectHour={setSelectHour}
-              setIsVisibleHours={setIsVisibleHours}
-            />
-          )} */}
+          <FormControl size="small">
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={selectHour}
+              onChange={handleClickHour}
+            >
+              {hourOptions.map((hour) => (
+                <MenuItem key={hour} value={hour}>
+                  {hour}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           :
-          <button
-            className={styles.minuteSelect}
-            type="button"
-            onClick={handleClickMinute}
-          >
-            {selectMinute}
-          </button>
-          {isVisibleMinutes === true && (
-            <Minute
-              setSelectMinute={setSelectMinute}
-              setIsVisibleMinutes={setIsVisibleMinutes}
-            />
-          )}
-        </div>
-        <div className={styles.selector}>
-          {isVisibleHours === true && (
-            <Hour
-              setSelectHour={setSelectHour}
-              setIsVisibleHours={setIsVisibleHours}
-            />
-          )}
+          <FormControl size="small">
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={selectMinute}
+              onChange={handleClickMinute}
+            >
+              {minuteOptions.map((minute) => (
+                <MenuItem key={minute} value={minute}>
+                  {minute}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
       </div>
     </div>
   );
 }
-
-// <select
-//               // className={styles.hourSelect}
-//               onChange={(e) => {
-//                 setSelectHour(e.target.value);
-//               }}
-//               value={selectHour}
-//             >
-//               {hourOptions.map((hour) => (
-//                 <option style={{ fontSize: "40px" }} key={hour} value={hour}>
-//                   {hour}
-//                 </option>
-//               ))}
-//             </select>
-//           </div>
-
-//           <select
-//             className={styles.minuteSelect}
-//             onChange={(e) => {
-//               setSelectMinute(e.target.value);
-//             }}
-//             value={selectMinute}
-//           >
-//             {minuteOptions.map((minute) => (
-//               <option key={minute} value={minute}>
-//                 {minute}
-//               </option>
-//             ))}
-//           </select>
