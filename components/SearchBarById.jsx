@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import styles from "../styles/searchBarById.module.scss";
 
 export default function SearchBarById() {
@@ -13,14 +14,20 @@ export default function SearchBarById() {
     <div className={styles.searchBarPosition}>
       <div className={styles.searchBar}>
         <div className={styles.searchIconStartPoint}>
-          <img className={styles.searchIcon} src="/searchIcon 2.png"></img>
+          <Image
+            className={styles.searchIcon}
+            width={15}
+            height={15}
+            src="/searchIcon 2.png"
+            alt="Search Icon"
+          />
           <input
             className={styles.input}
             type="text"
             placeholder="以團號搜尋"
             value={searchGroup}
             onChange={(e) => setSearchGroup(e.target.value)}
-          ></input>
+          />
         </div>
       </div>
     </div>
