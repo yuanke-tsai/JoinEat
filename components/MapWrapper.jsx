@@ -1,70 +1,18 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from "react";
-import styles from '@/styles/map.module.scss'
+import { useEffect, useState } from "react";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
-
-function Map({ center, zoom }) {
-  const ref = useRef();
-
-  useEffect(() => {
-    const map = new google.maps.Map(ref.current, {
-      center,
-      zoom,
-      disableDefaultUI: true,
-    });
-
-    const service = new google.maps.places.PlacesService(map);
-
-    map.addListener('click', function(e) {
-      const placeId = e.placeId;
-      if (!placeId) {
-        return;
-      }
-
-      // prevent the default popup window
-      e.stop();
-
-      service.getDetails({
-        placeId: placeId
-      }, (place, status) => {
-          if (
-            status === google.maps.places.PlacesServiceStatus.OK
-            &&
-            (place.types.includes('restaurant') || place.types.includes('cafe'))
-          ) {
-            const latitude = place.geometry.location.lat();
-            const longitude = place.geometry.location.lng();
-            alert(`${place.name}\n(${latitude}, ${longitude})`)
-          } else {
-            alert('請點擊餐廳');
-          }
-        });
-    });
-
-    new google.maps.Marker({
-      position: center,
-      map,
-      title: '你的位置',
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 10,
-        fillOpacity: 1,
-        strokeWeight: 2,
-        fillColor: '#5384ED',
-        strokeColor: '#ffffff',
-      },
-    })
-  });
-
-  return <div ref={ref} className={styles.map} />;
-}
+import styles from "@/styles/map.module.scss";
+import Map from "./Map";
 
 export default function MapWrapper() {
   const [position, setPosition] = useState({ lat: 0, lng: 0 });
 
-  function success(position) {
-    setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+  function success(pos) {
+    setPosition({
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+    });
   }
 
   function error() {
@@ -82,11 +30,12 @@ export default function MapWrapper() {
   function render(status) {
     if (status === Status.LOADING) {
       return <div className={styles.map}>Loading Map...</div>;
-    } else if (status === Status.FAILURE) {
-      return 'Error';
+    }
+    if (status === Status.FAILURE) {
+      return "Error";
     }
     return null;
-  };
+  }
 
   return (
     <Wrapper
@@ -94,9 +43,9 @@ export default function MapWrapper() {
       region="TW"
       apiKey={process.env.NEXT_PUBLIC_API_KEY}
       render={render}
-      libraries={['places']}
+      libraries={["places"]}
     >
-      <Map center={position} zoom={18}/>
+      <Map center={position} zoom={18} />
     </Wrapper>
-  )
+  );
 }
