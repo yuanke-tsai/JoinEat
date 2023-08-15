@@ -2,10 +2,22 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "../styles/searchBar.module.scss";
 
-export default function SearchBar({ center }) {
+export default function SearchBar({ center, setOptions, map }) {
   const [isSearch, setIsSearch] = useState(false);
   const inputRef = useRef(null);
   const autocompleteService = useRef(null);
+  const autocompleteInstance = useRef(null);
+
+  const onPlaceChanged = () => {
+    const selectedPlace = autocompleteInstance.current.getPlace();
+    if (selectedPlace) {
+      const lat = selectedPlace.geometry.location.lat();
+      const lng = selectedPlace.geometry.location.lng();
+
+      setOptions({ position: { lat, lng } });
+      alert(`${selectedPlace.name}\n(${lat}, ${lng})`);
+    }
+  };
 
   useEffect(() => {
     if (isSearch) {
@@ -28,16 +40,14 @@ export default function SearchBar({ center }) {
         strictBounds: false,
       };
 
-      const autocomplete = new window.google.maps.places.Autocomplete(
+      autocompleteInstance.current = new window.google.maps.places.Autocomplete(
         inputRef.current,
         options,
       );
+
+      autocompleteInstance.current.addListener("place_changed", onPlaceChanged);
     }
   }, [isSearch, center]);
-
-  if (inputRef.current?.value) {
-    console.log(inputRef.current.value);
-  }
 
   return (
     <div className={`${styles.searchBar} ${isSearch && styles.extendVert}`}>

@@ -1,16 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import styles from "@/styles/map.module.scss";
 import Map from "./Map";
 import SearchBar from "./SearchBar";
 
+function Marker(options) {
+  const [marker, setMarker] = useState();
+
+  useEffect(() => {
+    if (!marker) {
+      setMarker(new window.google.maps.Marker());
+    }
+
+    // remove marker from map on unmount
+    return () => {
+      if (marker) {
+        marker.setMap(null);
+      }
+    };
+  }, [marker]);
+
+  useEffect(() => {
+    if (marker) {
+      marker.setOptions(options);
+    }
+  }, [marker, options]);
+
+  return null;
+}
+
 export default function MapWrapper() {
-  const [position, setPosition] = useState({ lat: 0, lng: 0 });
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [options, setOptions] = useState();
 
   function success(pos) {
-    setPosition({
+    setCenter({
       lat: pos.coords.latitude,
       lng: pos.coords.longitude,
     });
@@ -40,7 +66,7 @@ export default function MapWrapper() {
 
   return (
     <>
-      <SearchBar center={position} />
+      <SearchBar center={center} setOptions={setOptions} />
       <Wrapper
         language="zh-TW"
         region="TW"
@@ -48,7 +74,9 @@ export default function MapWrapper() {
         render={render}
         libraries={["places"]}
       >
-        <Map center={position} zoom={18} />
+        <Map center={center} zoom={18} setOptions={setOptions}>
+          <Marker options={options} />
+        </Map>
       </Wrapper>
     </>
   );

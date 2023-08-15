@@ -1,9 +1,9 @@
 import { useRef, useEffect } from "react";
 import styles from "@/styles/map.module.scss";
 
-export default function Map({ center, zoom }) {
+export default function Map({ children, center, zoom, setOptions }) {
   const marker = useRef(null);
-
+  const userMarker = useRef(null);
   const ref = useRef();
 
   useEffect(() => {
@@ -37,13 +37,10 @@ export default function Map({ center, zoom }) {
             status === window.google.maps.places.PlacesServiceStatus.OK &&
             (place.types.includes("restaurant") || place.types.includes("cafe"))
           ) {
-            const latitude = place.geometry.location.lat();
-            const longitude = place.geometry.location.lng();
-            marker.current = new window.google.maps.Marker({
-              position: { lat: latitude, lng: longitude },
-              map,
-            });
-            alert(`${place.name}\n(${latitude}, ${longitude})`);
+            const lat = place.geometry.location.lat();
+            const lng = place.geometry.location.lng();
+            setOptions({ position: { lat, lng }, map });
+            alert(`${place.name}\n(${lat}, ${lng})`);
           } else {
             alert("請點擊餐廳");
           }
@@ -51,7 +48,7 @@ export default function Map({ center, zoom }) {
       );
     });
 
-    const userMarker = new window.google.maps.Marker({
+    userMarker.current = new window.google.maps.Marker({
       position: center,
       map,
       title: "你的位置",
@@ -64,7 +61,11 @@ export default function Map({ center, zoom }) {
         strokeColor: "#ffffff",
       },
     });
-  });
+  }, []);
 
-  return <div ref={ref} className={styles.map} />;
+  return (
+    <div ref={ref} className={styles.map}>
+      {children}
+    </div>
+  );
 }
