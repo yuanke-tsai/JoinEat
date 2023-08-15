@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import styles from "../styles/searchBarById.module.scss";
 
 export default function SearchBarById() {
@@ -13,7 +14,13 @@ export default function SearchBarById() {
     <div className={styles.searchBarPosition}>
       <div className={styles.searchBar}>
         <div className={styles.searchIconStartPoint}>
-          <img className={styles.searchIcon} src="/searchIcon 2.png" />
+          <Image
+            className={styles.searchIcon}
+            width={15}
+            height={15}
+            src="/searchIcon 2.png"
+            alt="Search Icon"
+          />
           <input
             className={styles.input}
             type="text"

@@ -14,3 +14,14 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.pac-container {
+  position: absolute !important;
+  top: 50px !important;
+  left: 15px !important;
+  width: 80% !important;
+  box-shadow: none;
+  border: 1px solid #d0d0d0;
+  padding: 1rem 0.5rem;
+  border-radius: 15px;
+}

@@ -13,7 +13,6 @@ export default function Home() {
   // isNewGroup? -> render other components
   return (
     <div style={{ position: "relative" }}>
-      <SearchBar />
       <MapWrapper />
       <SearchBarById />
       <Groups />
