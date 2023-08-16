@@ -1,0 +1,30 @@
+.groupToCenter {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+    .newGroupTime {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 86vw;
+        height: 8.5vh; //99.3 px
+        .timeTitle {
+            margin-top: 1%;
+            margin-left: 1%;
+            color: #000;
+            font-family: Inter;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+        .timeSelector {
+            display: flex;
+            margin-left: 9%;
+            width: 45%;
+            height: 55%;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
