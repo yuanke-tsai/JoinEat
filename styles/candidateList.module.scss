@@ -1,16 +1,14 @@
 .groupToCenter {
     display: flex;
     justify-content: center;
-    margin-top: 1vh;
-    .newGroupTime {
+    margin-top: 2vh;
+    .candidateList {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 86vw;
-        height: 3.5vh; //99.3 px
-        .timeTitle {
-            display: flex;
-            align-items: center;
+        height: auto; // 8.5vh; //99.3 px
+        .title {
             margin-top: 1%;
             margin-left: 1%;
             color: #000;
@@ -19,9 +17,18 @@
             font-style: normal;
             font-weight: 500;
             line-height: normal;
-            .checkbox {
-                margin-left: 1%;
-            }
+        }
+        .candidate {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 2%;
+            width: 100%;
+            height: auto;// 55%;
+            align-items: center;
+        }
+        .groupDecision {
+            display: flex;
+            justify-content: center;
         }
     }
 }
