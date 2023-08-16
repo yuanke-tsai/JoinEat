@@ -1,24 +1,25 @@
 import { useRef, useEffect } from "react";
 import styles from "@/styles/map.module.scss";
+import SearchBar from "./SearchBar";
 
 export default function Map({ children, center, zoom, setOptions }) {
-  const marker = useRef(null);
   const userMarker = useRef(null);
-  const ref = useRef();
+  const ref = useRef(null);
+  const mapInstance = useRef(null);
 
   useEffect(() => {
-    const map = new window.google.maps.Map(ref.current, {
+    mapInstance.current = new window.google.maps.Map(ref.current, {
       center,
       zoom,
       disableDefaultUI: true,
     });
 
-    const service = new window.google.maps.places.PlacesService(map);
+    const service = new window.google.maps.places.PlacesService(
+      mapInstance.current,
+    );
 
-    map.addListener("click", (e) => {
-      if (marker.current) {
-        marker.current.setMap(null);
-      }
+    mapInstance.current.addListener("click", (e) => {
+      setOptions({ map: null });
 
       const { placeId } = e;
       if (!placeId) {
@@ -39,7 +40,7 @@ export default function Map({ children, center, zoom, setOptions }) {
           ) {
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
-            setOptions({ position: { lat, lng }, map });
+            setOptions({ position: { lat, lng }, map: mapInstance.current });
             alert(`${place.name}\n(${lat}, ${lng})`);
           } else {
             alert("請點擊餐廳");
@@ -50,7 +51,7 @@ export default function Map({ children, center, zoom, setOptions }) {
 
     userMarker.current = new window.google.maps.Marker({
       position: center,
-      map,
+      map: mapInstance.current,
       title: "你的位置",
       icon: {
         path: window.google.maps.SymbolPath.CIRCLE,
@@ -64,8 +65,15 @@ export default function Map({ children, center, zoom, setOptions }) {
   }, []);
 
   return (
-    <div ref={ref} className={styles.map}>
-      {children}
-    </div>
+    <>
+      <SearchBar
+        center={center}
+        setOptions={setOptions}
+        mapInstance={mapInstance}
+      />
+      <div ref={ref} className={styles.map}>
+        {children}
+      </div>
+    </>
   );
 }

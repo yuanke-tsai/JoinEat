@@ -1,10 +1,11 @@
+/* eslint-disable react/jsx-no-bind */
+
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import styles from "@/styles/map.module.scss";
 import Map from "./Map";
-import SearchBar from "./SearchBar";
 
 function Marker(options) {
   const [marker, setMarker] = useState();
@@ -55,29 +56,23 @@ export default function MapWrapper() {
   }, []);
 
   function render(status) {
-    if (status === Status.LOADING) {
-      return <div className={styles.map}>Loading Map...</div>;
-    }
     if (status === Status.FAILURE) {
       return "Error";
     }
-    return null;
+    return <div className={styles.map}>Loading Map...</div>;
   }
 
   return (
-    <>
-      <SearchBar center={center} setOptions={setOptions} />
-      <Wrapper
-        language="zh-TW"
-        region="TW"
-        apiKey={process.env.NEXT_PUBLIC_API_KEY}
-        render={render}
-        libraries={["places"]}
-      >
-        <Map center={center} zoom={18} setOptions={setOptions}>
-          <Marker options={options} />
-        </Map>
-      </Wrapper>
-    </>
+    <Wrapper
+      language="zh-TW"
+      region="TW"
+      apiKey={process.env.NEXT_PUBLIC_API_KEY}
+      render={render}
+      libraries={["places"]}
+    >
+      <Map center={center} zoom={18} setOptions={setOptions}>
+        <Marker options={options} />
+      </Map>
+    </Wrapper>
   );
 }
