@@ -7,15 +7,9 @@ import styles from "../../styles/newGroupPublic.module.scss";
 
 export default function Public() {
   const [isPublic, setIsPublic] = useState(false);
-  const [count, setCount] = useState(0);
 
   const handleClickPublic = () => {
-    setCount((prev) => prev + 1);
-    if (count % 2 === 0) {
-      setIsPublic(true);
-    } else {
-      setIsPublic(false);
-    }
+    setIsPublic(!isPublic);
   };
 
   return (
