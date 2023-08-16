@@ -5,9 +5,9 @@ import styles from "../../styles/candidateList.module.scss";
 
 export default function CandidateList() {
   const event_user = "tsai";
-  const user = "tsai";
+  const user = "robot";
   const [isJoined, setIsJoined] = useState(false);
-  const handleClick = (e) => {
+  const handleJoined = (e) => {
     e.preventDefault();
     setIsJoined(!isJoined);
   };
@@ -25,9 +25,9 @@ export default function CandidateList() {
   if (userCheck === false) {
     content =
       isJoined === false ? (
-        <Button text="加入" callback={handleClick} status={isJoined} />
+        <Button text="加入" callback={handleJoined} status={isJoined} />
       ) : (
-        <Button text="取消" callback={handleClick} status={isJoined} />
+        <Button text="取消" callback={handleJoined} status={isJoined} />
       );
   } else {
     content = (
