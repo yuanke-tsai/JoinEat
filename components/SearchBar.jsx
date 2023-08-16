@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "../styles/searchBar.module.scss";
 
-export default function SearchBar({ center, setOptions, map }) {
+export default function SearchBar({ center, setOptions, mapInstance }) {
   const [isSearch, setIsSearch] = useState(false);
   const inputRef = useRef(null);
   const autocompleteService = useRef(null);
@@ -14,7 +14,7 @@ export default function SearchBar({ center, setOptions, map }) {
       const lat = selectedPlace.geometry.location.lat();
       const lng = selectedPlace.geometry.location.lng();
 
-      setOptions({ position: { lat, lng } });
+      setOptions({ position: { lat, lng }, map: mapInstance.current });
       alert(`${selectedPlace.name}\n(${lat}, ${lng})`);
     }
   };
