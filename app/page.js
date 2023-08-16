@@ -13,9 +13,9 @@ export default function Home() {
     <div style={{ position: "relative" }}>
       <MapWrapper />
       <SearchBarById />
-      <Groups />
-      {/* <NewGroup /> */}
-      <CandidateList />
+      {/* <Groups /> */}
+      <NewGroup />
+      {/* <CandidateList /> */}
     </div>
   );
 }
