@@ -2,7 +2,6 @@
 
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
-import SearchBar from "@/components/SearchBar";
 import SearchBarById from "@/components/SearchBarById";
 import NewGroup from "@/components/NewGroup/NewGroup";
 
