@@ -3,7 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import styles from "../styles/newGroupTime.module.scss";
+import styles from "../../styles/newGroupTime.module.scss";
 
 export default function NewGroupDate() {
   const monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
