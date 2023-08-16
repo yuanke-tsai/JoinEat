@@ -5,7 +5,7 @@ import Groups from "@/components/Groups";
 import SearchBar from "@/components/SearchBar";
 import SearchBarById from "@/components/SearchBarById";
 import NewGroup from "@/components/NewGroup/NewGroup";
-import Candidate from "@/components/Candidate";
+import Candidate from "@/components/CandidateList";
 
 export default function Home() {
   // isNewGroup? -> render other components
