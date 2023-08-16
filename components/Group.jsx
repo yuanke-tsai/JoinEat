@@ -6,7 +6,12 @@ export default function Group() {
       <div className={styles.basicInfo}>
         <img className={styles.userImg} src="/profileIcon.jpg" />
         <div className={styles.time}>
-          <p>08:00</p>
+          <div className={styles.eventTime}>
+            <p>08:00</p>
+          </div>
+          <div className={styles.eventDate}>
+            <p>07/27</p>
+          </div>
         </div>
         {/* <div className={styles.names}><p>多加精緻早午餐QQQQQ</p></div> */}
         <div className={styles.names}>
