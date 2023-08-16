@@ -5,6 +5,7 @@ import Groups from "@/components/Groups";
 import SearchBar from "@/components/SearchBar";
 import SearchBarById from "@/components/SearchBarById";
 import NewGroup from "@/components/NewGroup/NewGroup";
+import Candidate from "@/components/Candidate";
 
 export default function Home() {
   // isNewGroup? -> render other components
@@ -13,7 +14,8 @@ export default function Home() {
       <MapWrapper />
       <SearchBarById />
       <Groups />
-      <NewGroup />
+      {/* <NewGroup /> */}
+      <Candidate />
     </div>
   );
 }

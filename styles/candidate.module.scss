@@ -1,0 +1,33 @@
+.groupToCenter {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+    .candidate {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 86vw;
+        height: 8.5vh; //99.3 px
+        border: 1px solid black;
+        .title {
+            margin-top: 1%;
+            margin-left: 1%;
+            color: #000;
+            font-family: Inter;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+        .candidateList {
+            display: flex;
+            margin-left: 9%;
+            margin-right: 9px;
+            width: 100%;
+            height: 55%;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid black;
+        }
+    }
+}
