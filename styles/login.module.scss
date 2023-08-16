@@ -1,0 +1,67 @@
+.loginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .title {
+    font-size: 48px;
+    margin-top: 7rem;
+  }
+
+  .subTitle {
+    margin-top: 1.5rem;
+    font-size: 24px;
+  }
+
+  .form {
+    margin-top: 4.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: 13px;
+      }
+
+      input {
+        margin-top: 0.3rem;
+        padding: 0 0.5rem;
+        width: 15rem;
+        height: 2rem;
+        outline: none;
+        border-radius: 5px;
+      }
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      width: 5rem;
+      height: 2.5rem;
+      border: none;
+      border-radius: 5px;
+      background-color: black;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .prompt {
+    margin-top: 0.6rem;
+    font-size: 13px;
+
+    .link {
+      display: inline;
+      font-size: inherit;
+      border: none;
+      background-color: white;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+  }
+}
