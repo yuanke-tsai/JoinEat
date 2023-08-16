@@ -5,7 +5,7 @@ import Groups from "@/components/Groups";
 import SearchBar from "@/components/SearchBar";
 import SearchBarById from "@/components/SearchBarById";
 import NewGroup from "@/components/NewGroup/NewGroup";
-import Candidate from "@/components/CandidateList";
+import CandidateList from "@/components/Candidate/CandidateList";
 
 export default function Home() {
   // isNewGroup? -> render other components
@@ -15,7 +15,7 @@ export default function Home() {
       <SearchBarById />
       <Groups />
       {/* <NewGroup /> */}
-      <Candidate />
+      <CandidateList />
     </div>
   );
 }

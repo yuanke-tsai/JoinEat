@@ -1,4 +1,4 @@
-import styles from "../styles/candidate.module.scss";
+import styles from "../../styles/candidate.module.scss";
 
 export default function Candidate() {
   return (
