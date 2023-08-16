@@ -2,15 +2,15 @@ import { useRef, useEffect } from "react";
 import styles from "@/styles/map.module.scss";
 import SearchBar from "./SearchBar";
 
-export default function Map({ children, center, zoom, setOptions }) {
+export default function Map({ children, center, setOptions }) {
   const userMarker = useRef(null);
-  const ref = useRef(null);
+  const mapRef = useRef(null);
   const mapInstance = useRef(null);
 
   useEffect(() => {
-    mapInstance.current = new window.google.maps.Map(ref.current, {
+    mapInstance.current = new window.google.maps.Map(mapRef.current, {
       center,
-      zoom,
+      zoom: 18,
       disableDefaultUI: true,
     });
 
@@ -71,7 +71,7 @@ export default function Map({ children, center, zoom, setOptions }) {
         setOptions={setOptions}
         mapInstance={mapInstance}
       />
-      <div ref={ref} className={styles.map}>
+      <div ref={mapRef} className={styles.map}>
         {children}
       </div>
     </>
