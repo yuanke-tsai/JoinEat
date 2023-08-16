@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import styles from "../../styles/newGroupTime.module.scss";
 
-export default function NewGroupTime() {
+export default function Time() {
   const hourOptions = [
     "00",
     "01",

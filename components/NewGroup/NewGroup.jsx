@@ -1,14 +1,16 @@
 import Button from "./Button";
 import Time from "./Time";
-import Date from "./Date";
+import DateSelect from "./DateSelect";
 import Limit from "./Limit";
+import Public from "./Public";
 
 export default function NewGroup() {
   return (
     <div>
       <Time />
-      <Date />
+      <DateSelect />
       <Limit />
+      <Public />
       <Button />
     </div>
   );
