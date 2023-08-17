@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import styles from "@/styles/map.module.scss";
 import SearchBar from "./SearchBar";
 
-export default function Map({ children, center, setOptions }) {
+export default function Map({ children, center, setOptions, setShopName }) {
   const userMarker = useRef(null);
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
@@ -41,6 +41,7 @@ export default function Map({ children, center, setOptions }) {
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
             setOptions({ position: { lat, lng }, map: mapInstance.current });
+            setShopName(place.name);
             console.log(`${place.name}\n(${lat}, ${lng})`);
           } else {
             console.log("請點擊餐廳");

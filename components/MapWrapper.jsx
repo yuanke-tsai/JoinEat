@@ -8,7 +8,7 @@ import styles from "@/styles/map.module.scss";
 import Map from "./Map";
 import Marker from "./Marker";
 
-export default function MapWrapper({ options, setOptions }) {
+export default function MapWrapper({ options, setOptions, setShopName }) {
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
 
   function success(pos) {
@@ -41,11 +41,11 @@ export default function MapWrapper({ options, setOptions }) {
     <Wrapper
       language="zh-TW"
       region="TW"
-      apiKey={process.env.NEXT_PUBLIC_API_KEY}
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}
       render={render}
       libraries={["places"]}
     >
-      <Map center={center} setOptions={setOptions}>
+      <Map center={center} setOptions={setOptions} setShopName={setShopName}>
         <Marker options={options} />
       </Map>
     </Wrapper>

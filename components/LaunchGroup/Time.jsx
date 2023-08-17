@@ -1,59 +1,21 @@
-import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import styles from "../../styles/LaunchGroupTime.module.scss";
 
-export default function Time() {
-  const hourOptions = [
-    "00",
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-  ];
-  const minuteOptions = [
-    "00",
-    "05",
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50",
-    "55",
-  ];
-  const [selectHour, setSelectHour] = useState(hourOptions[13]);
-  const [selectMinute, setSelectMinute] = useState(minuteOptions[6]);
-  console.log(selectMinute);
-
+export default function Time({
+  hourOptions,
+  minuteOptions,
+  hour,
+  minute,
+  setHour,
+  setMinute,
+}) {
   const handleClickHour = (e) => {
-    setSelectHour(e.target.value);
+    setHour(e.target.value);
   };
   const handleClickMinute = (e) => {
-    setSelectMinute(e.target.value);
+    setMinute(e.target.value);
   };
   return (
     <div className={styles.groupToCenter}>
@@ -66,12 +28,12 @@ export default function Time() {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={selectHour}
+              value={hour}
               onChange={handleClickHour}
             >
-              {hourOptions.map((hour) => (
-                <MenuItem key={hour} value={hour}>
-                  {hour}
+              {hourOptions.map((hr) => (
+                <MenuItem key={hr} value={hr}>
+                  {hr}
                 </MenuItem>
               ))}
             </Select>
@@ -81,12 +43,12 @@ export default function Time() {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={selectMinute}
+              value={minute}
               onChange={handleClickMinute}
             >
-              {minuteOptions.map((minute) => (
-                <MenuItem key={minute} value={minute}>
-                  {minute}
+              {minuteOptions.map((min) => (
+                <MenuItem key={min} value={min}>
+                  {min}
                 </MenuItem>
               ))}
             </Select>

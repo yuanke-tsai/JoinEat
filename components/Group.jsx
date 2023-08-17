@@ -1,10 +1,17 @@
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../styles/group.module.scss";
 
-export default function Group({ setGoEvent }) {
+export default function Group({
+  setGoEvent,
+  isButtonDisable,
+  shop_name,
+  eventName,
+}) {
   const handleClickEvent = (e) => {
     e.preventDefault();
-    setGoEvent(true);
+    if (!isButtonDisable) {
+      setGoEvent(true);
+    }
   };
   return (
     <div>
@@ -19,7 +26,13 @@ export default function Group({ setGoEvent }) {
       >
         <div type="submit" className={styles.group}>
           <div className={styles.basicInfo}>
-            <img className={styles.userImg} src="/profileIcon.jpg" />
+            <picture>
+              <img
+                className={styles.userImg}
+                src="/profileIcon.jpg"
+                alt="profileIcon"
+              />
+            </picture>
             <div className={styles.time}>
               <div className={styles.eventTime}>
                 <p>08:00</p>
@@ -28,18 +41,21 @@ export default function Group({ setGoEvent }) {
                 <p>07/27</p>
               </div>
             </div>
-            {/* <div className={styles.names}><p>多加精緻早午餐QQQQQ</p></div> */}
             <div className={styles.names}>
-              <div className={styles.nameGroup}>一起吃飯惹啦啦</div>
-              <div className={styles.nameResturant}>
-                美而美美而美美而美美而美
-              </div>
+              <div className={styles.nameGroup}>{eventName}</div>
+              <div className={styles.nameResturant}>{shop_name}</div>
             </div>
           </div>
           <div className={styles.detailInfo}>
             <div className={styles.peopleLimit}>
               <p>3/4</p>
-              <img className={styles.usersIcon} src="/usersIcon 1.png" />
+              <picture>
+                <img
+                  className={styles.usersIcon}
+                  src="/usersIcon 1.png"
+                  alt="usersIcon"
+                />
+              </picture>
             </div>
             <div className={styles.distance}>300m</div>
           </div>
