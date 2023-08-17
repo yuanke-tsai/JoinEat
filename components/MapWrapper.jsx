@@ -42,7 +42,7 @@ export default function MapWrapper() {
     <Wrapper
       language="zh-TW"
       region="TW"
-      apiKey={process.env.NEXT_PUBLIC_API_KEY}
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}
       render={render}
       libraries={["places"]}
     >

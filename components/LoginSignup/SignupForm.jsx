@@ -1,23 +1,41 @@
-import axios from "axios";
 import { useRef } from "react";
+import Swal from "sweetalert2";
 import styles from "@/styles/login.module.scss";
+import useSignup from "@/hooks/useSignup";
 
-export default function SignupForm() {
+const AccountState = {
+  LoggingIn: 0,
+  SigningUp: 1,
+};
+
+export default function SignupForm({ setAccountState }) {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const signup = useSignup();
 
   return (
     <form
       className={styles.form}
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
+        const { error, data } = await signup(
+          nameRef.current.value,
+          emailRef.current.value,
+          passwordRef.current.value,
+        );
 
-        axios.post("https://13.54.3.89/api/1.0/users/signup", {
-          name: nameRef.current.value,
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        });
+        const success = !error && data;
+        if (success) {
+          setAccountState(AccountState.LoggingIn);
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: error?.message,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
       }}
     >
       <div>

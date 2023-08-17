@@ -1,10 +1,15 @@
 import { useRef } from "react";
-import axios from "axios";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 import styles from "@/styles/login.module.scss";
+import useLogin from "@/hooks/useLogin";
 
 export default function LoginForm() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const router = useRouter();
+  const login = useLogin();
 
   return (
     <form
@@ -12,15 +17,24 @@ export default function LoginForm() {
       onSubmit={async (e) => {
         e.preventDefault();
 
-        const data = await axios.post(
-          "https://13.54.3.89/api/1.0/users/signin",
-          {
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-          },
+        const { error, data } = await login(
+          emailRef.current.value.trim(),
+          passwordRef.current.value.trim(),
         );
-        console.log(data);
-        // TODO: save access_token as cookie
+
+        const success = !error && data;
+        if (success) {
+          setCookie("access_token", data.data.access_token, { maxAge: 3600 });
+          setCookie("user_id", data.data.user.id, { maxAge: 3600 });
+          router.push("/");
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: error?.message,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
       }}
     >
       <div>
