@@ -41,9 +41,9 @@ export default function Map({ children, center, setOptions }) {
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
             setOptions({ position: { lat, lng }, map: mapInstance.current });
-            alert(`${place.name}\n(${lat}, ${lng})`);
+            console.log(`${place.name}\n(${lat}, ${lng})`);
           } else {
-            alert("請點擊餐廳");
+            console.log("請點擊餐廳");
           }
         },
       );
@@ -62,7 +62,7 @@ export default function Map({ children, center, setOptions }) {
         strokeColor: "#ffffff",
       },
     });
-  }, []);
+  }, [center, setOptions]);
 
   return (
     <>

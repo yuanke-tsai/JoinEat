@@ -7,17 +7,6 @@ export default function SearchBar({ center, setOptions, mapInstance }) {
   const inputRef = useRef(null);
   const autocompleteInstance = useRef(null);
 
-  const onPlaceChanged = () => {
-    const selectedPlace = autocompleteInstance.current.getPlace();
-    if (selectedPlace) {
-      const lat = selectedPlace.geometry.location.lat();
-      const lng = selectedPlace.geometry.location.lng();
-
-      setOptions({ position: { lat, lng }, map: mapInstance.current });
-      alert(`${selectedPlace.name}\n(${lat}, ${lng})`);
-    }
-  };
-
   useEffect(() => {
     if (!isSearch) {
       return;
@@ -45,8 +34,19 @@ export default function SearchBar({ center, setOptions, mapInstance }) {
       options,
     );
 
+    const onPlaceChanged = () => {
+      const selectedPlace = autocompleteInstance.current.getPlace();
+      if (selectedPlace) {
+        const lat = selectedPlace.geometry.location.lat();
+        const lng = selectedPlace.geometry.location.lng();
+
+        setOptions({ position: { lat, lng }, map: mapInstance.current });
+        console.log(`${selectedPlace.name}\n(${lat}, ${lng})`);
+      }
+    };
+
     autocompleteInstance.current.addListener("place_changed", onPlaceChanged);
-  }, [isSearch, center]);
+  }, [isSearch, center, setOptions, mapInstance]);
 
   return (
     <div className={`${styles.searchBar} ${isSearch && styles.extendVert}`}>

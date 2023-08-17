@@ -1,10 +1,10 @@
 "use client";
 
 import MapWrapper from "@/components/MapWrapper";
-import Groups from "@/components/Groups";
+// import Groups from "@/components/Groups";
 import SearchBarById from "@/components/SearchBarById";
 import NewGroup from "@/components/NewGroup/NewGroup";
-import CandidateList from "@/components/Candidate/CandidateList";
+// import CandidateList from "@/components/Candidate/CandidateList";
 
 export default function Home() {
   // isNewGroup? -> render other components
