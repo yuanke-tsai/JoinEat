@@ -3,7 +3,7 @@ import axios from "axios";
 async function login(email, password) {
   try {
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_KEY}/users/signin`,
+      `${process.env.NEXT_PUBLIC_API_DOMAIN}/users/signin`,
       {
         email,
         password,
