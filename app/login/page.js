@@ -33,7 +33,11 @@ export default function Login() {
       <div className={styles.subTitle}>
         {accountState === AccountState.LoggingIn ? "會員登入" : "會員註冊"}
       </div>
-      {accountState === AccountState.LoggingIn ? <LoginForm /> : <SignupForm />}
+      {accountState === AccountState.LoggingIn ? (
+        <LoginForm />
+      ) : (
+        <SignupForm setAccountState={setAccountState} />
+      )}
       <div className={styles.prompt}>
         {accountState === AccountState.LoggingIn
           ? "尚未成為會員？"
