@@ -1,4 +1,4 @@
-import styles from "../styles/newGroupButton.module.scss";
+import styles from "../styles/button.module.scss";
 
 export default function Button({ text, callback, status }) {
   const dynamicButton = status ? styles.buttonAreaGray : styles.buttonArea;

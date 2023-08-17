@@ -1,20 +1,40 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
 import SearchBar from "@/components/SearchBar";
 import SearchBarById from "@/components/SearchBarById";
-import NewGroup from "@/components/NewGroup/NewGroup";
+import NewGroups from "@/components/NewGroups";
+import LaunchGroup from "@/components/LaunchGroup/LaunchGroup";
 import CandidateList from "@/components/Candidate/CandidateList";
 
 export default function Home() {
-  // isNewGroup? -> render other components
+  const [isNewGroup, setIsNewGroup] = useState(false);
+  const [goEvent, setGoEvent] = useState(false);
+  let content = null;
+
+  if (!goEvent) {
+    content = <Groups setGoEvent={setGoEvent} />;
+  } else {
+    content = !isNewGroup ? (
+      <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />
+    ) : (
+      <LaunchGroup />
+    );
+  }
+
   return (
     <div style={{ position: "relative" }}>
       <MapWrapper />
       <SearchBarById />
-      {/* <Groups /> */}
-      <NewGroup />
+      {content}
+      {/* <Groups setGoEvent={setGoEvent} />
+      {!isNewGroup ? (
+        <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />
+      ) : (
+        <LaunchGroup />
+      )} */}
       {/* <CandidateList /> */}
     </div>
   );

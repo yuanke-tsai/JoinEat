@@ -15,7 +15,12 @@ export default function NewGroup() {
   };
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" , marginTop:'2vh'}}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: "2vh",
+      }}
     >
       <Group />
       <Time />

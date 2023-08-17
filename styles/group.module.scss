@@ -1,4 +1,5 @@
 .group {
+  background-color: white;
   display: flex;
   width: 86vw;
   height: 8.3vh;
@@ -17,31 +18,42 @@
     .time {
       display: flex;
       flex-direction: column;
+      width: auto;
       height: 100%;
       justify-content: center;
       margin-left: 5%;
       background-color: white;
       .eventTime {
-        font-size: 1em;
+        font-size: 1rem;
+        // text-align: center;
       }
       .eventDate {
-        font-size: 0.7rem;
+        font-size: 0.9rem;
+        // text-align: center;
       }
     }
     .names {
       display: flex;
+      text-align: left;
       flex-direction: column;
       justify-content: center;
       margin-left: 5%;
       height: 100%;
+      width: 40%;
       .nameGroup {
         width: 100%;
         font-size: 0.95rem;
         font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .nameResturant {
         width: 100%;
         font-size: 0.7rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

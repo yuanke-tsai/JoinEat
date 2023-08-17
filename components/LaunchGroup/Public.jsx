@@ -3,7 +3,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-import styles from "../../styles/newGroupPublic.module.scss";
+import styles from "../../styles/LaunchGroupPublic.module.scss";
 
 export default function Public() {
   const [isPublic, setIsPublic] = useState(false);

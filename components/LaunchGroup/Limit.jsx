@@ -3,7 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import styles from "../../styles/newGroupTime.module.scss";
+import styles from "../../styles/LaunchGroupTime.module.scss";
 
 export default function Limit() {
   const hourOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
