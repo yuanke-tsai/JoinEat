@@ -1,27 +1,27 @@
 .newGroupButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 2vh;
+  .buttonArea {
     display: flex;
     justify-content: center;
-    margin-top: 2vh;
-    .buttonArea {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 18.7vw;
-        height: 46px;
-        background-color: black;
-        color: white;
-        border-radius: 5px;
-        border: none;
-    }
-    .buttonAreaGray {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 18.7vw;
-        height: 46px;
-        background-color: gray;
-        color: white;
-        border-radius: 5px;
-        border: none;
-    }
+    align-items: center;
+    width: 18.7vw;
+    height: 46px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    border: none;
+  }
+  .buttonAreaGray {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18.7vw;
+    height: 46px;
+    background-color: gray;
+    color: white;
+    border-radius: 5px;
+    border: none;
+  }
 }

@@ -8,9 +8,8 @@ import styles from "@/styles/map.module.scss";
 import Map from "./Map";
 import Marker from "./Marker";
 
-export default function MapWrapper() {
+export default function MapWrapper({ options, setOptions }) {
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [options, setOptions] = useState();
 
   function success(pos) {
     setCenter({
@@ -20,7 +19,7 @@ export default function MapWrapper() {
   }
 
   function error() {
-    alert("無法取得您的位置，請開啟位置存取權限");
+    console.log("無法取得您的位置，請開啟位置存取權限");
   }
 
   useEffect(() => {
