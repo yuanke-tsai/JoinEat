@@ -2,10 +2,14 @@
 import styles from "../styles/group.module.scss";
 
 export default function Group({
+  eventTime,
+  eventDistance,
   setGoEvent,
   isButtonDisable,
   shop_name,
   eventName,
+  people_joined,
+  people_limit,
 }) {
   const handleClickEvent = (e) => {
     e.preventDefault();
@@ -35,10 +39,19 @@ export default function Group({
             </picture>
             <div className={styles.time}>
               <div className={styles.eventTime}>
-                <p>08:00</p>
+                {eventTime !== undefined && (
+                  <p>
+                    {eventTime.hour}:{eventTime.minute}
+                  </p>
+                )}
+                {/* {eventTime.hour}:{eventTime.minute} */}
               </div>
               <div className={styles.eventDate}>
-                <p>07/27</p>
+                {eventTime !== undefined && (
+                  <p>
+                    {eventTime.month}/{eventTime.date}
+                  </p>
+                )}
               </div>
             </div>
             <div className={styles.names}>
@@ -48,7 +61,9 @@ export default function Group({
           </div>
           <div className={styles.detailInfo}>
             <div className={styles.peopleLimit}>
-              <p>3/4</p>
+              <p>
+                {people_joined}/{people_limit}
+              </p>
               <picture>
                 <img
                   className={styles.usersIcon}
@@ -57,7 +72,7 @@ export default function Group({
                 />
               </picture>
             </div>
-            <div className={styles.distance}>300m</div>
+            <div className={styles.distance}>{eventDistance}m</div>
           </div>
         </div>
       </button>
