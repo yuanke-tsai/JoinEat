@@ -8,7 +8,7 @@ import styles from "@/styles/map.module.scss";
 import Map from "./Map";
 import Marker from "./Marker";
 
-export default function MapWrapper({ options, setOptions }) {
+export default function MapWrapper({ options, setOptions, setShopName }) {
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
 
   function success(pos) {
@@ -45,7 +45,7 @@ export default function MapWrapper({ options, setOptions }) {
       render={render}
       libraries={["places"]}
     >
-      <Map center={center} setOptions={setOptions}>
+      <Map center={center} setOptions={setOptions} setShopName={setShopName}>
         <Marker options={options} />
       </Map>
     </Wrapper>

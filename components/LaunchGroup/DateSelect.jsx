@@ -1,31 +1,21 @@
-import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import styles from "../../styles/newGroupTime.module.scss";
+import styles from "../../styles/LaunchGroupTime.module.scss";
 
-export default function DateSelect() {
-  const monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-  const [selectMonth, setSelectMonth] = useState(monthOptions[6]);
-  const [selectDate, setSelectDate] = useState(1);
-
-  const daysInMonth = (month) => {
-    const currentYear = new Date().getFullYear();
-    if (month === 2) {
-      return (currentYear % 4 === 0 && currentYear % 100 !== 0) ||
-        currentYear % 400 === 0
-        ? 29
-        : 28;
-    }
-    return new Date(currentYear, month, 0).getDate();
-  };
-
+export default function DateSelect({
+  monthOptions,
+  daysInMonth,
+  month,
+  date,
+  setMonth,
+  setDate,
+}) {
   const handleClickMonth = (e) => {
-    setSelectMonth(e.target.value);
+    setMonth(e.target.value);
   };
   const handleClickDate = (e) => {
-    setSelectDate(e.target.value);
+    setDate(e.target.value);
   };
   return (
     <div className={styles.groupToCenter}>
@@ -38,7 +28,7 @@ export default function DateSelect() {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={selectMonth}
+              value={month}
               onChange={handleClickMonth}
             >
               {monthOptions.map((hour) => (
@@ -53,11 +43,11 @@ export default function DateSelect() {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={selectDate}
+              value={date}
               onChange={handleClickDate}
             >
               {Array.from(
-                { length: daysInMonth(selectMonth) },
+                { length: daysInMonth(month) },
                 (_, index) => index + 1,
               ).map((day) => (
                 <MenuItem key={day} value={day}>

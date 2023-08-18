@@ -1,10 +1,12 @@
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../../styles/candidate.module.scss";
 
 export default function Candidate() {
   return (
     <div className={styles.candidate}>
-      <Image src="/profileIcon.jpg" alt="user" />
+      <picture>
+        <img src="/profileIcon.jpg" alt="user" />
+      </picture>
       <div>XXX</div>
     </div>
   );

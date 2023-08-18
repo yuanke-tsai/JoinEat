@@ -1,10 +1,10 @@
 import Group from "./Group";
 import styles from "../styles/groups.module.scss";
 
-export default function Groups() {
+export default function Groups({ setGoEvent, isButtonDisable }) {
   return (
     <div className={styles.groups}>
-      <Group />
+      <Group setGoEvent={setGoEvent} isButtonDisable={isButtonDisable} />
     </div>
   );
 }

@@ -1,0 +1,32 @@
+.groupToCenter {
+  display: flex;
+  justify-content: center;
+  margin-top: 2vh;
+  .newGroupTime {
+    display: flex;
+    align-items: center;
+    width: 86vw;
+    height: 3.5vh; //99.3 px
+    .timeTitle {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 1%;
+      margin-left: 1%;
+      color: #000;
+      font-family: Inter;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      .eventName {
+        height: 100%;
+        margin-left: 1%;
+        border: 2px solid #e0e0e0;
+        border-radius: 2px;
+        font-size: 13px;
+      }
+    }
+  }
+}
