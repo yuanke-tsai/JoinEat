@@ -19,6 +19,12 @@ const redirects = async () => [
     permanent: false,
     destination: "/login",
   },
+  {
+    source: "/users/:id",
+    missing: [{ type: "cookie", key: "access_token" }],
+    permanent: false,
+    destination: "/login",
+  },
 ];
 
 module.exports = {
