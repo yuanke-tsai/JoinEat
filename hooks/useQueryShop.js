@@ -9,7 +9,6 @@ export default function useQueryShop(
   longitudeShop,
 ) {
   const url = `${process.env.NEXT_PUBLIC_API_DOMAIN}/events/shop`;
-  console.log(latitudeShop);
 
   // const responseData = { latitude: 25.0379173, longitude: 121.5324211 };
   const responseData = { latitude: latitudeShop, longitude: longitudeShop };

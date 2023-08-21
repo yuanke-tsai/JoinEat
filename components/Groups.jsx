@@ -12,30 +12,19 @@ export default function Groups({
   longitude,
   position,
 }) {
-  const [data, isValidating, fetcher] = useEventList(
-    access_token,
-    latitude,
-    longitude,
-  );
-  const [eventList, setEventList] = useState(data);
-  // console.log(eventList);
-  // console.log(position);
-  // let eventList;
-  useEffect(() => {
-    if (position === undefined) {
-      fetcher();
-      setEventList(data);
-    }
-  }, [position, data, eventList]);
-  console.log(data)
-  console.log(eventList);
-  //  eventList = useQueryShop(
-  //     access_token,
-  //     latitude,
-  //     longitude,
-  //     position.lat,
-  //     position.lat,
-  //   );
+  let eventList;
+  if (position === undefined) {
+    eventList = useEventList(access_token, latitude, longitude);
+  } else {
+    eventList = useQueryShop(
+      access_token,
+      latitude,
+      longitude,
+      position.lat,
+      position,
+    );
+  }
+
   return (
     <div className={styles.groups}>
       {eventList !== null &&

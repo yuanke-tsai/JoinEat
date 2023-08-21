@@ -16,5 +16,5 @@ export default function useEventList(access_token, latitude, longitude) {
 
   const { data, error, isValidating } = useSWR(url, fetcher);
 
-  return [data, isValidating, fetcher];
+  return { data, isLoading: isValidating };
 }
