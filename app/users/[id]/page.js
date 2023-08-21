@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCookie } from "cookies-next";
 
 import styles from "@/styles/user.module.scss";
@@ -11,6 +11,7 @@ import LeftArrow from "@/components/Icons/LeftArrow";
 import Group from "@/components/Group";
 import useProfile from "@/hooks/useProfile";
 import useHistory from "@/hooks/useHistory";
+import useUpdateProfile from "@/hooks/useUpdateProfile";
 
 export default function LoginPage({ params }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -18,7 +19,12 @@ export default function LoginPage({ params }) {
   const tagsRef = useRef(null);
   const profile = useProfile(params.id);
   const events = useHistory(params.id);
-  const editable = params.id === getCookie("user_id");
+  const updateProfile = useUpdateProfile();
+
+  const [editable, setEditable] = useState(false);
+  useEffect(() => {
+    setEditable(params.id === getCookie("user_id"));
+  }, [params.id]);
 
   return (
     <div className={styles.page}>
@@ -27,18 +33,19 @@ export default function LoginPage({ params }) {
           <LeftArrow />
         </Link>
         <div>個人資料</div>
-        <button
-          type="button"
-          className={styles.button}
-          onClick={() => {
-            if (!editable) {
-              return;
-            }
-            setIsEditing(!isEditing);
-          }}
-        >
-          <Edit />
-        </button>
+        {editable ? (
+          <button
+            type="button"
+            className={styles.button}
+            onClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          >
+            <Edit />
+          </button>
+        ) : (
+          <div className={styles.buffer} />
+        )}
       </div>
       <Image
         src={profile?.picture ?? "/profileIcon.png"}
@@ -72,9 +79,11 @@ export default function LoginPage({ params }) {
               className={styles.black}
               type="button"
               onClick={() => {
-                // TODO: update profile API
-                console.log(tagsRef.current.value);
-                console.log(introductionRef.current.value);
+                updateProfile(
+                  profile.name,
+                  introductionRef.current.value,
+                  tagsRef.current.value,
+                );
                 setIsEditing(false);
               }}
             >
