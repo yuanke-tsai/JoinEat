@@ -3,21 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { getCookie } from "cookies-next";
 import styles from "@/styles/user.module.scss";
 import Edit from "@/components/Icons/Edit";
 import LeftArrow from "@/components/Icons/LeftArrow";
 import Group from "@/components/Group";
-
-const profileData = {
-  user: {
-    user_id: "8ceb3d97-50e8-4a5c-8919-2b61bac02cb9",
-    name: "抽抽",
-    email: "test@test.com",
-    picture: "some_url",
-    introduction: "嗨我是抽抽，這是我的自我介紹。",
-    tags: "寫程式,咖啡,火鍋,小熊維尼,聖鬥士",
-  },
-};
+import useProfile from "@/hooks/useProfile";
 
 const historyData = {
   events: [
@@ -64,6 +55,8 @@ export default function LoginPage() {
   const [isEditing, setIsEditing] = useState(false);
   const introductionRef = useRef(null);
   const tagsRef = useRef(null);
+  const userId = getCookie("user_id");
+  const profile = useProfile(userId);
 
   return (
     <div className={styles.page}>
@@ -83,17 +76,17 @@ export default function LoginPage() {
         </button>
       </div>
       <Image src="/profileIcon.png" width={80} height={80} />
-      <div className={styles.name}>抽抽</div>
+      <div className={styles.name}>{profile?.name}</div>
       {isEditing ? (
         <>
           <textarea
             ref={introductionRef}
-            defaultValue={profileData.user.introduction}
+            defaultValue={profile.introduction}
             className={styles.editing}
           />
           <textarea
             ref={tagsRef}
-            defaultValue={profileData.user.tags}
+            defaultValue={profile.tags}
             className={styles.editing}
           />
           <div className={styles.buttonWrapper}>
@@ -122,13 +115,12 @@ export default function LoginPage() {
         </>
       ) : (
         <>
-          <div className={styles.introduction}>
-            {profileData.user.introduction}
-          </div>
+          <div className={styles.introduction}>{profile?.introduction}</div>
           <div className={styles.tags}>
-            {profileData.user.tags.split(",").map((tag) => (
-              <div className={styles.tag}>{tag}</div>
-            ))}
+            {profile?.tags &&
+              profile.tags
+                .split(",")
+                .map((tag) => <div className={styles.tag}>{tag}</div>)}
           </div>
         </>
       )}
