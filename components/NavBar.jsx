@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 import { useState } from "react";
 import styles from "@/styles/navBar.module.scss";
 
 export default function NavBar() {
   const [showDropDown, setShowDropDown] = useState(false);
+  const userId = getCookie("user_id");
 
   return (
     <div
@@ -30,7 +31,7 @@ export default function NavBar() {
       </div>
       <div className={styles.blank} />
       <div className={`${styles.dropDown} ${!showDropDown && styles.hidden}`}>
-        <Link href="/users/demo" className={styles.link}>
+        <Link href={`/users/${userId}`} className={styles.link}>
           查看個人檔案
         </Link>
         <Link
