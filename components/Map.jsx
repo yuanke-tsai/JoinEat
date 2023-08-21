@@ -19,10 +19,10 @@ export default function Map({ children, center, setOptions, setShopName }) {
     );
 
     mapInstance.current.addListener("click", (e) => {
-      setOptions({ map: null });
-
       const { placeId } = e;
       if (!placeId) {
+        setOptions({ map: null });
+
         return;
       }
 

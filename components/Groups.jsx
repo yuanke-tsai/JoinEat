@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import Group from "./Group";
 import useEventList from "@/hooks/useEventList";
+import useQueryShop from "@/hooks/useQueryShop";
 import styles from "../styles/groups.module.scss";
 
 export default function Groups({
@@ -8,9 +10,32 @@ export default function Groups({
   isButtonDisable,
   latitude,
   longitude,
+  position,
 }) {
-  const eventList = useEventList(access_token, latitude, longitude);
+  const [data, isValidating, fetcher] = useEventList(
+    access_token,
+    latitude,
+    longitude,
+  );
+  const [eventList, setEventList] = useState(data);
+  // console.log(eventList);
+  // console.log(position);
+  // let eventList;
+  useEffect(() => {
+    if (position === undefined) {
+      fetcher();
+      setEventList(data);
+    }
+  }, [position, data, eventList]);
+  console.log(data)
   console.log(eventList);
+  //  eventList = useQueryShop(
+  //     access_token,
+  //     latitude,
+  //     longitude,
+  //     position.lat,
+  //     position.lat,
+  //   );
   return (
     <div className={styles.groups}>
       {eventList !== null &&

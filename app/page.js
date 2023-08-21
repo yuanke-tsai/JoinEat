@@ -15,13 +15,11 @@ export default function Home() {
   const [options, setOptions] = useState();
   const [shop_name, setShopName] = useState();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  // 用options?.location來判斷要顯示哪些團:
-  // if options?.location === undefine：顯示全部公開團
-  // else：顯示餐廳座標為options.position的團
-  // const [isNewGroup, setIsNewGroup] = useState(false);
+  const [isNewGroup, setIsNewGroup] = useState(false);
   const [goEvent, setGoEvent] = useState(false);
   const [content, setContent] = useState(null);
 
+  console.log(options?.position);
   useEffect(() => {
     if (options?.position === undefined && center.lat !== 0) {
       if (!goEvent) {
@@ -31,6 +29,7 @@ export default function Home() {
             setGoEvent={setGoEvent}
             latitude={center.lat}
             longitude={center.lng}
+            position={options?.position}
           />,
         );
       } else {
@@ -38,17 +37,30 @@ export default function Home() {
       }
     }
     if (options?.position !== undefined && center.lat !== 0) {
-      // 檢查 options 存不存在
-
-      // 存在 if goEvent <Group mapData />
-      // 不存在 show create group button
+      console.log(options.position.lat);
+      console.log(options.position.lng);
+      // console.log(center.lat)
+      // 拿position 去做 Groups，如果沒有東西則...
       setContent(
-        <LaunchGroup
-          shop_name={shop_name}
-          latitude={options?.position?.lat}
-          longitude={options?.position?.lng}
+        <Groups
+          access_token={access_token}
+          setGoEvent={setGoEvent}
+          latitude={center.lat}
+          longitude={center.lng}
+          latitudeShop={options.position.lng}
+          longitudeShop={options.position.lng}
+          position={options?.position}
         />,
       );
+
+      // setContent(<CandidateList />);
+      // setContent(
+      //   <LaunchGroup
+      //     shop_name={shop_name}
+      //     latitude={options?.position?.lat}
+      //     longitude={options?.position?.lng}
+      //   />,
+      // );
     } else {
       console.log("loading");
     }
