@@ -1,13 +1,11 @@
 import axios from "axios";
 import { getCookie } from "cookies-next";
 
-async function updateProfile(name, introduction, tags) {
+async function updateProfile(introduction, tags) {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
-  const userId = getCookie("user_id");
-  await axios.post(
-    `${apiDomain}/users/${userId}`,
+  await axios.put(
+    `${apiDomain}/users/profile`,
     {
-      name,
       introduction,
       tags,
     },
