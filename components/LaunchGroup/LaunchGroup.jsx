@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 import Button from "../Button";
 import Time from "./Time";
 import DateSelect from "./DateSelect";
@@ -11,6 +12,7 @@ import { hourOptions, minuteOptions } from "./timeOptions";
 import { nowYear, monthOptions, daysInMonth } from "./dateOptions";
 
 export default function LaunchGroup({ shop_name, latitude, longitude }) {
+  const access_token = getCookie("access_token");
   const text = "發起";
   const isButtonDisable = true;
   const [isLaunch, setIsLaunch] = useState(false);
@@ -39,7 +41,7 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
     // 送 axios
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_API_URL}/events/`,
+        `${process.env.NEXT_PUBLIC_API_DOMAIN}/events/`,
         {
           latitude,
           longitude,
@@ -52,7 +54,7 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTE5Yzg5NGEtZDJhYS00ZjljLWE0NWYtMGY2MDY0ZmRkZGFmIiwiaWF0IjoxNjkyMjY0NjI2fQ.BOOPX3SYTg_kyyTtHWEsGbDaYhNHhmmdW9b_VuS4-dQ`,
+            Authorization: `Bearer ${access_token}`,
           },
         },
       )

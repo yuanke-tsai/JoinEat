@@ -8,8 +8,15 @@ import styles from "@/styles/map.module.scss";
 import Map from "./Map";
 import Marker from "./Marker";
 
-export default function MapWrapper({ options, setOptions, setShopName }) {
-  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+export default function MapWrapper({
+  center,
+  setCenter,
+  options,
+  setOptions,
+  setShopName,
+}) {
+  // const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  // console.log(center)
 
   function success(pos) {
     setCenter({

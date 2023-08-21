@@ -1,17 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
 import SearchBarById from "@/components/SearchBarById";
 // import NewGroups from "@/components/NewGroups";
 import LaunchGroup from "@/components/LaunchGroup/LaunchGroup";
 import CandidateList from "@/components/Candidate/CandidateList";
+import useEventList from "@/hooks/useEventList";
 
 export default function Home() {
+  const access_token = getCookie("access_token");
   const [options, setOptions] = useState();
   const [shop_name, setShopName] = useState();
-  console.log(shop_name);
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
   // 用options?.location來判斷要顯示哪些團:
   // if options?.location === undefine：顯示全部公開團
   // else：顯示餐廳座標為options.position的團
@@ -20,15 +23,21 @@ export default function Home() {
   const [content, setContent] = useState(null);
 
   useEffect(() => {
-    console.log(options?.position);
-    // console.log(options?.position);
-    if (options?.position === undefined) {
+    if (options?.position === undefined && center.lat !== 0) {
       if (!goEvent) {
-        setContent(<Groups setGoEvent={setGoEvent} />);
+        setContent(
+          <Groups
+            access_token={access_token}
+            setGoEvent={setGoEvent}
+            latitude={center.lat}
+            longitude={center.lng}
+          />,
+        );
       } else {
         setContent(<CandidateList />);
       }
-    } else {
+    }
+    if (options?.position !== undefined && center.lat !== 0) {
       // 檢查 options 存不存在
 
       // 存在 if goEvent <Group mapData />
@@ -40,9 +49,10 @@ export default function Home() {
           longitude={options?.position?.lng}
         />,
       );
-      console.log("test");
+    } else {
+      console.log("loading");
     }
-  }, [options, goEvent]);
+  }, [options, goEvent, center]);
 
   // 根據點擊 map 的資訊判斷
   // content = !isNewGroup ? (
@@ -53,6 +63,8 @@ export default function Home() {
   return (
     <div style={{ position: "relative" }}>
       <MapWrapper
+        center={center}
+        setCenter={setCenter}
         options={options}
         setOptions={setOptions}
         setShopName={setShopName}
