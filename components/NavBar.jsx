@@ -30,7 +30,7 @@ export default function NavBar() {
       </div>
       <div className={styles.blank} />
       <div className={`${styles.dropDown} ${!showDropDown && styles.hidden}`}>
-        <Link href="/" className={styles.link}>
+        <Link href="/users/demo" className={styles.link}>
           查看個人檔案
         </Link>
         <Link
