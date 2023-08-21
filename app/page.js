@@ -37,41 +37,28 @@ export default function Home() {
       }
     }
     if (options?.position !== undefined && center.lat !== 0) {
-      console.log(options.position.lat);
-      console.log(options.position.lng);
       // console.log(center.lat)
       // 拿position 去做 Groups，如果沒有東西則...
-      setContent(
-        <Groups
-          access_token={access_token}
-          setGoEvent={setGoEvent}
-          latitude={center.lat}
-          longitude={center.lng}
-          latitudeShop={options.position.lng}
-          longitudeShop={options.position.lng}
-          position={options?.position}
-        />,
-      );
-
-      // setContent(<CandidateList />);
-      // setContent(
-      //   <LaunchGroup
-      //     shop_name={shop_name}
-      //     latitude={options?.position?.lat}
-      //     longitude={options?.position?.lng}
-      //   />,
-      // );
+      if (!goEvent) {
+        setContent(
+          <Groups
+            access_token={access_token}
+            setGoEvent={setGoEvent}
+            latitude={center.lat}
+            longitude={center.lng}
+            latitudeShop={options.position.lng}
+            longitudeShop={options.position.lng}
+            position={options?.position}
+          />,
+        );
+      } else {
+        setContent(<CandidateList />);
+      }
     } else {
       console.log("loading");
     }
   }, [options, goEvent, center]);
 
-  // 根據點擊 map 的資訊判斷
-  // content = !isNewGroup ? (
-  //     <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />
-  //   ) : (
-  //     <LaunchGroup />
-  //   );
   return (
     <div style={{ position: "relative" }}>
       <MapWrapper

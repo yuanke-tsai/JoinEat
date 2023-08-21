@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Group from "./Group";
 import useEventList from "@/hooks/useEventList";
 import useQueryShop from "@/hooks/useQueryShop";
 import styles from "../styles/groups.module.scss";
+import GroupEventsList from "./GroupEventsList";
+import GroupQueryShopList from "./GroupQueryShopList";
 
 export default function Groups({
   access_token,
@@ -12,35 +14,73 @@ export default function Groups({
   longitude,
   position,
 }) {
-  let eventList;
-  if (position === undefined) {
-    eventList = useEventList(access_token, latitude, longitude);
-  } else {
-    eventList = useQueryShop(
-      access_token,
-      latitude,
-      longitude,
-      position.lat,
-      position,
-    );
-  }
+  // let eventList;
+  const [content, setContent] = useState();
+
+  useEffect(() => {
+    if (position === undefined) {
+      // const { data: eventList } = useEventList(access_token, latitude, longitude);
+      setContent(
+        <GroupEventsList
+          setGoEvent={setGoEvent}
+          isButtonDisable={isButtonDisable}
+          access_token={access_token}
+          latitude={latitude}
+          longitude={longitude}
+        />,
+      );
+    } else {
+      console.log("check", position);
+      setContent(
+        <GroupQueryShopList
+          setGoEvent={setGoEvent}
+          isButtonDisable={isButtonDisable}
+          access_token={access_token}
+          latitude={latitude}
+          longitude={longitude}
+          latitudeShop={position.lat}
+          longitudeShop={position.lng}
+        />,
+      );
+      // eventList = useQueryShop(
+      //   access_token,
+      //   latitude,
+      //   longitude,
+      //   position.lat,
+      //   position,
+      // );
+    }
+  }, [
+    position,
+    access_token,
+    setGoEvent,
+    isButtonDisable,
+    latitude,
+    longitude,
+  ]);
 
   return (
     <div className={styles.groups}>
-      {eventList !== null &&
-        eventList?.data?.data?.events.map((event) => (
-          <Group
-            key={event.event_id}
-            eventName={event.name}
-            shop_name={event.shop_name}
-            eventTime={event.appointment_time}
-            people_joined={event.people_joined}
-            people_limit={event.people_limit}
-            eventDistance={event.distance}
-            setGoEvent={setGoEvent}
-            isButtonDisable={isButtonDisable}
-          />
-        ))}
+      {content}
+      {/* {position === undefined ? (
+        <GroupEventsList
+          setGoEvent={setGoEvent}
+          isButtonDisable={isButtonDisable}
+          access_token={access_token}
+          latitude={latitude}
+          longitude={longitude}
+        />
+      ) : (
+        <GroupQueryShopList
+          setGoEvent={setGoEvent}
+          isButtonDisable={isButtonDisable}
+          access_token={access_token}
+          latitude={latitude}
+          longitude={longitude}
+          latitudeShop={position.lat}
+          longitudeShop={position.lng}
+        />
+      )} */}
     </div>
   );
 }
