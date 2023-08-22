@@ -17,6 +17,8 @@ export default function Groups({
   position,
   shop_name,
   setActiveEventId,
+  keyword,
+  setSearchGroup,
 }) {
   const text = "開新團";
   const [content, setContent] = useState();
@@ -40,16 +42,19 @@ export default function Groups({
       );
     } else {
       setContent(
-        <GroupQueryShopList
-          setActiveEventId={setActiveEventId}
-          isButtonDisable={isButtonDisable}
-          access_token={access_token}
-          latitude={latitude}
-          longitude={longitude}
-          latitudeShop={position.lat}
-          longitudeShop={position.lng}
-          shop_name={shop_name}
-        />,
+        <>
+          <GroupQueryShopList
+            setActiveEventId={setActiveEventId}
+            isButtonDisable={isButtonDisable}
+            access_token={access_token}
+            latitude={latitude}
+            longitude={longitude}
+            latitudeShop={position.lat}
+            longitudeShop={position.lng}
+            shop_name={shop_name}
+          />
+          <Button text={text} callback={handleClick} />
+        </>,
       );
     }
   }, [
@@ -60,14 +65,16 @@ export default function Groups({
     latitude,
     longitude,
   ]);
-  console.log(openGroup);
+
   return (
     <div className={styles.groups}>
-      {/* {content} */}
       {openGroup === false ? (
         <div>
+          <SearchBarById
+            searchGroup={keyword}
+            setSearchGroup={setSearchGroup}
+          />
           {content}
-          <Button text={text} callback={handleClick} />
         </div>
       ) : (
         <LaunchGroup

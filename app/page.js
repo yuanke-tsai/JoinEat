@@ -37,6 +37,8 @@ export default function Home() {
           longitude={center.lng}
           position={options?.position}
           setActiveEventId={setActiveEventId}
+          keyword={keyword}
+          setSearchGroup={setSearchGroup}
         />,
       );
     } else {
@@ -53,6 +55,8 @@ export default function Home() {
           longitudeShop={options?.position.lng}
           position={options?.position}
           setActiveEventId={setActiveEventId}
+          keyword={keyword}
+          setSearchGroup={setSearchGroup}
         />,
       );
     }
@@ -85,9 +89,8 @@ export default function Home() {
         setShopName={setShopName}
       />
 
-      <SearchBarById searchGroup={keyword} setSearchGroup={setSearchGroup} />
       {keyword === "" ? (
-        <div>{content} </div>
+        content
       ) : (
         <GroupsSearchResult
           groupsSearchResult={groupsSearchResult}

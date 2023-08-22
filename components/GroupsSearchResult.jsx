@@ -1,5 +1,6 @@
 import Group from "./Group";
 import styles from "../styles/groups.module.scss";
+import SearchBarById from "./SearchBarById";
 
 export default function GroupsSearchResult({
   setActiveEventId,
