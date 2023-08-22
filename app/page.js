@@ -41,6 +41,7 @@ export default function Home() {
           setSearchGroup={setSearchGroup}
           openGroup={openGroup}
           setOpenGroup={setOpenGroup}
+          shop_name={shop_name}
         />,
       );
     } else {
@@ -58,6 +59,7 @@ export default function Home() {
           setSearchGroup={setSearchGroup}
           openGroup={openGroup}
           setOpenGroup={setOpenGroup}
+          shop_name={shop_name}
         />,
       );
     }

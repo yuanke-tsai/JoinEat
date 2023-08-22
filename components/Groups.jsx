@@ -74,6 +74,7 @@ export default function Groups({
           shop_name={shop_name}
           latitude={position?.lat}
           longitude={position?.lng}
+          setOpenGroup={setOpenGroup}
         />
       )}
       {/* if render launch */}
