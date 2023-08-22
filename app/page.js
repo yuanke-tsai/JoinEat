@@ -1,9 +1,12 @@
 "use client";
 
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
+import axios from "axios";
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
+import SearchBarById from "@/components/SearchBarById";
+import GroupsSearchResult from "@/components/GroupsSearchResult";
 // import NewGroups from "@/components/NewGroups";
 import LaunchGroup from "@/components/LaunchGroup/LaunchGroup";
 import GroupDetail from "@/components/GroupDetail";
@@ -14,8 +17,10 @@ export default function Home() {
   const [options, setOptions] = useState();
   const [shop_name, setShopName] = useState();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [isNewGroup, setIsNewGroup] = useState(false);
+
   const [content, setContent] = useState(null);
+  const [keyword, setSearchGroup] = useState("");
+  const [groupsSearchResult, setGroupsSearchResult] = useState("");
   const [activeEventId, setActiveEventId] = useState(null);
 
   useEffect(() => {
@@ -53,6 +58,23 @@ export default function Home() {
     }
   }, [options, center, options?.position?.lng]);
 
+  useEffect(() => {
+    if (keyword !== "") {
+      console.log(keyword);
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events/search`, {
+          params: { keyword, latitude: center.lat, longitude: center.lng },
+          headers: { Authorization: `Bearer ${access_token}` },
+        })
+        .then((response) => {
+          console.log(response);
+          setGroupsSearchResult(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [keyword]);
   return (
     <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>
       <MapWrapper
@@ -62,7 +84,16 @@ export default function Home() {
         setOptions={setOptions}
         setShopName={setShopName}
       />
-      {content}
+
+      <SearchBarById searchGroup={keyword} setSearchGroup={setSearchGroup} />
+      {keyword === "" ? (
+        <div>{content} </div>
+      ) : (
+        <GroupsSearchResult
+          groupsSearchResult={groupsSearchResult}
+          setActiveEventId={setActiveEventId}
+        />
+      )}
       {activeEventId && (
         <GroupDetail
           center={center}
@@ -70,14 +101,6 @@ export default function Home() {
           eventId={activeEventId}
         />
       )}
-      {/* <Groups setGoEvent={setGoEvent} />
-      {!isNewGroup ? (
-        <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />
-      ) : (
-        <LaunchGroup />
-      )} */}
-      {/* <CandidateList /> */}
-      {/* <LaunchGroup shop_name={shop_name} /> */}
     </div>
   );
 }

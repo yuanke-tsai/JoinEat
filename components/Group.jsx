@@ -13,6 +13,7 @@ export default function Group({
 }) {
   const handleClickEvent = (e) => {
     e.preventDefault();
+    console.log("event id: ", eventId);
     setActiveEventId(eventId);
   };
 
