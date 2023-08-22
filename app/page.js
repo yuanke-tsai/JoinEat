@@ -39,13 +39,10 @@ export default function Home() {
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
+          shop_name={shop_name}
         />,
       );
     } else {
-      // 檢查 options 存不存在
-
-      // 存在 if goEvent <Group mapData />
-      // 不存在 show create group button
       setContent(
         <Groups
           access_token={access_token}
@@ -57,6 +54,7 @@ export default function Home() {
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
+          shop_name={shop_name}
         />,
       );
     }

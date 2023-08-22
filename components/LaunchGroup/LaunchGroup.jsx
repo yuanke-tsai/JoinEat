@@ -8,12 +8,18 @@ import Limit from "./Limit";
 import Public from "./Public";
 import Group from "../Group";
 import EventName from "./EventName";
+import styles from "../../styles/launchGroup.module.scss";
+import Cancel from "../Icons/Cancel";
 import { hourOptions, minuteOptions } from "./timeOptions";
 import { nowYear, monthOptions, daysInMonth } from "./dateOptions";
 
-export default function LaunchGroup({ shop_name, latitude, longitude }) {
+export default function LaunchGroup({
+  shop_name,
+  latitude,
+  longitude,
+  setOpenGroup,
+}) {
   const access_token = getCookie("access_token");
-  const text = "發起";
   const isButtonDisable = true;
   const [isLaunch, setIsLaunch] = useState(false);
   const [event_name, setEventName] = useState("");
@@ -70,14 +76,17 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
 
   console.log(event_name);
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: "2vh",
-      }}
-    >
+    <div className={styles.lauchGroup}>
+      <div className={styles.titleBar}>
+        <button
+          type="button"
+          onClick={() => {
+            setOpenGroup(false);
+          }}
+        >
+          <Cancel />
+        </button>
+      </div>
       <Group
         isButtonDisable={isButtonDisable}
         shop_name={shop_name}
@@ -105,7 +114,7 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
       />
       <Limit people_limit={people_limit} setPeopleLimit={setPeopleLimit} />
       <Public handleClickPublic={handleClickPublic} />
-      <Button text={text} callback={handleClick} status={isLaunch} />
+      <Button text="發起" callback={handleClick} status={isLaunch} />
     </div>
   );
 }

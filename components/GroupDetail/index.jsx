@@ -14,6 +14,7 @@ export default function GroupDetail({
 }) {
   const eventDetail = useEventDetail(eventId, center.lat, center.lng);
   const isJoined = eventDetail && eventDetail.is_joined;
+  const board = navigator.clipboard;
 
   const handleJoined = (e) => {
     e.preventDefault();
@@ -21,7 +22,10 @@ export default function GroupDetail({
 
   const handleCopy = (e) => {
     e.preventDefault();
+    navigator.clipboard.writeText(eventId.toString());
     // 執行copy
+    console.log("eventID", eventId);
+    console.log("board", board);
   };
 
   const handleDeletEvent = (e) => {
