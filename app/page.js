@@ -76,7 +76,7 @@ export default function Home() {
     }
   }, [keyword]);
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>
       <MapWrapper
         center={center}
         setCenter={setCenter}

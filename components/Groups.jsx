@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // import useEventList from "@/hooks/useEventList";
 // import useQueryShop from "@/hooks/useQueryShop";
 import styles from "../styles/groups.module.scss";
+import SearchBarById from "./SearchBarById";
 import GroupEventsList from "./GroupEventsList";
 import GroupQueryShopList from "./GroupQueryShopList";
 import Button from "./Button";
@@ -10,12 +11,12 @@ import LaunchGroup from "./LaunchGroup/LaunchGroup";
 
 export default function Groups({
   access_token,
-  setGoEvent,
   isButtonDisable,
   latitude,
   longitude,
   position,
   shop_name,
+  setActiveEventId,
 }) {
   const text = "開新團";
   const [content, setContent] = useState();
@@ -30,7 +31,7 @@ export default function Groups({
     if (position === undefined) {
       setContent(
         <GroupEventsList
-          setGoEvent={setGoEvent}
+          setActiveEventId={setActiveEventId}
           isButtonDisable={isButtonDisable}
           access_token={access_token}
           latitude={latitude}
@@ -40,7 +41,7 @@ export default function Groups({
     } else {
       setContent(
         <GroupQueryShopList
-          setGoEvent={setGoEvent}
+          setActiveEventId={setActiveEventId}
           isButtonDisable={isButtonDisable}
           access_token={access_token}
           latitude={latitude}
@@ -55,7 +56,6 @@ export default function Groups({
     position,
     position?.lat,
     access_token,
-    setGoEvent,
     isButtonDisable,
     latitude,
     longitude,

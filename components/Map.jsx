@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import styles from "@/styles/map.module.scss";
 import SearchBar from "./SearchBar";
+import NavBar from "./NavBar";
 
 export default function Map({ children, center, setOptions, setShopName }) {
   const userMarker = useRef(null);
@@ -72,6 +73,7 @@ export default function Map({ children, center, setOptions, setShopName }) {
         setOptions={setOptions}
         mapInstance={mapInstance}
       />
+      <NavBar />
       <div ref={mapRef} className={styles.map}>
         {children}
       </div>
