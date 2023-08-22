@@ -17,7 +17,7 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
   const isButtonDisable = true;
   const [isLaunch, setIsLaunch] = useState(false);
   const [event_name, setEventName] = useState("");
-  const [is_public, setIsPublic] = useState(false);
+  const [is_public, setIsPublic] = useState(true);
   const [year, setYear] = useState(nowYear);
   const [month, setMonth] = useState(monthOptions[0]);
   const [date, setDate] = useState(1);
@@ -38,6 +38,7 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
   const handleClick = (e) => {
     e.preventDefault();
     setIsLaunch(true);
+    window.location.href = "/";
     // 送 axios
     axios
       .post(
@@ -102,7 +103,7 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
         setMonth={setMonth}
         setDate={setDate}
       />
-      <Limit setPeopleLimit={setPeopleLimit} />
+      <Limit people_limit={people_limit} setPeopleLimit={setPeopleLimit} />
       <Public handleClickPublic={handleClickPublic} />
       <Button text={text} callback={handleClick} status={isLaunch} />
     </div>

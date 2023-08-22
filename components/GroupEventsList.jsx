@@ -48,7 +48,6 @@ export default function GroupEventsList({
                           {event.appointment_time.minute}
                         </p>
                       )}
-                      {/* {eventTime.hour}:{eventTime.minute} */}
                     </div>
                     <div className={styles.eventDate}>
                       {event.appointment_time !== undefined && (

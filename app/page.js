@@ -1,23 +1,23 @@
 "use client";
 
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
+import axios from "axios";
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
 import SearchBarById from "@/components/SearchBarById";
-// import NewGroups from "@/components/NewGroups";
-import LaunchGroup from "@/components/LaunchGroup/LaunchGroup";
 import CandidateList from "@/components/Candidate/CandidateList";
-import useEventList from "@/hooks/useEventList";
+import GroupsSearchResult from "@/components/GroupsSearchResult";
 
 export default function Home() {
   const access_token = getCookie("access_token");
   const [options, setOptions] = useState();
   const [shop_name, setShopName] = useState();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [isNewGroup, setIsNewGroup] = useState(false);
   const [goEvent, setGoEvent] = useState(false);
   const [content, setContent] = useState(null);
+  const [keyword, setSearchGroup] = useState("");
+  const [groupsSearchResult, setGroupsSearchResult] = useState("");
 
   useEffect(() => {
     if (options?.position === undefined && center.lat !== 0) {
@@ -36,8 +36,6 @@ export default function Home() {
       }
     }
     if (options?.position !== undefined && center.lat !== 0) {
-      // console.log(center.lat)
-      // 拿position 去做 Groups，如果沒有東西則...
       if (!goEvent) {
         setContent(
           <Groups
@@ -48,6 +46,7 @@ export default function Home() {
             latitudeShop={options.position.lng}
             longitudeShop={options.position.lng}
             position={options?.position}
+            shop_name={shop_name}
           />,
         );
       } else {
@@ -57,7 +56,25 @@ export default function Home() {
       console.log("loading");
     }
   }, [options, goEvent, center, options?.position?.lng]);
+  console.log("goEvent", goEvent);
 
+  useEffect(() => {
+    if (keyword !== "") {
+      console.log(keyword);
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events/search`, {
+          params: { keyword, latitude: center.lat, longitude: center.lng },
+          headers: { Authorization: `Bearer ${access_token}` },
+        })
+        .then((response) => {
+          console.log(response);
+          setGroupsSearchResult(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [keyword]);
   return (
     <div style={{ position: "relative" }}>
       <MapWrapper
@@ -67,16 +84,15 @@ export default function Home() {
         setOptions={setOptions}
         setShopName={setShopName}
       />
-      <SearchBarById />
-      {content}
-      {/* <Groups setGoEvent={setGoEvent} />
-      {!isNewGroup ? (
-        <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />
+      <SearchBarById searchGroup={keyword} setSearchGroup={setSearchGroup} />
+      {keyword === "" ? (
+        <div>{content} </div>
       ) : (
-        <LaunchGroup />
-      )} */}
-      {/* <CandidateList /> */}
-      {/* <LaunchGroup shop_name={shop_name} /> */}
+        <GroupsSearchResult
+          groupsSearchResult={groupsSearchResult}
+          setGoEvent={setGoEvent}
+        />
+      )}
     </div>
   );
 }
