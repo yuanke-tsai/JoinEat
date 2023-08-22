@@ -5,7 +5,12 @@ import Cancel from "../Icons/Cancel";
 import styles from "@/styles/groupDetail.module.scss";
 import useEventDetail from "@/hooks/useEventDetail";
 
-export default function GroupDetail({ center, setActiveEventId, eventId }) {
+export default function GroupDetail({
+  center,
+  setActiveEventId,
+  eventId,
+  isHistory,
+}) {
   const eventDetail = useEventDetail(eventId, center.lat, center.lng);
   const isJoined = eventDetail && eventDetail.is_joined;
 
@@ -56,10 +61,15 @@ export default function GroupDetail({ center, setActiveEventId, eventId }) {
       </div>
       <div className={styles.members}>
         {eventDetail?.participants.map((member) => (
-          <Member key={member.id} name={member.name} picture={member.picture} />
+          <Member
+            key={member.id}
+            id={member.id}
+            name={member.name}
+            picture={member.picture}
+          />
         ))}
       </div>
-      <div className={styles.content}>{content}</div>
+      {!isHistory && <div className={styles.content}>{content}</div>}
     </div>
   );
 }

@@ -13,6 +13,7 @@ import Group from "@/components/Group";
 import useProfile from "@/hooks/useProfile";
 import useHistory from "@/hooks/useHistory";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
+import GroupDetail from "@/components/GroupDetail";
 
 export default function ProfilePage({ params }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -22,6 +23,7 @@ export default function ProfilePage({ params }) {
   const events = useHistory(params.id, 0, 0);
   const updateProfile = useUpdateProfile();
   const { mutate } = useSWRConfig();
+  const [activeEventId, setActiveEventId] = useState(null);
 
   const [editable, setEditable] = useState(false);
   useEffect(() => {
@@ -120,8 +122,8 @@ export default function ProfilePage({ params }) {
             <Group
               eventTime={event.appointment_time}
               eventDistance={null}
-              setGoEvent={null}
-              isButtonDisable
+              setActiveEventId={setActiveEventId}
+              eventId={event.id}
               shop_name={event.shop_name}
               eventName={event.name}
               people_joined={event.people_joined}
@@ -129,6 +131,14 @@ export default function ProfilePage({ params }) {
             />
           ))}
       </div>
+      {activeEventId && (
+        <GroupDetail
+          center={{ lat: 0, lng: 0 }}
+          setActiveEventId={setActiveEventId}
+          isHistory
+          eventId={activeEventId}
+        />
+      )}
     </div>
   );
 }
