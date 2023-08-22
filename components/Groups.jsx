@@ -31,7 +31,7 @@ export default function Groups({
         />,
       );
     } else {
-      console.log("check", position);
+      console.log('has position')
       setContent(
         <GroupQueryShopList
           setActiveEventId={setActiveEventId}
@@ -43,16 +43,10 @@ export default function Groups({
           longitudeShop={position.lng}
         />,
       );
-      // eventList = useQueryShop(
-      //   access_token,
-      //   latitude,
-      //   longitude,
-      //   position.lat,
-      //   position,
-      // );
     }
   }, [
     position,
+    position?.lat,
     access_token,
     isButtonDisable,
     latitude,

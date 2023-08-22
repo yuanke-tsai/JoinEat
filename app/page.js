@@ -18,7 +18,6 @@ export default function Home() {
   const [content, setContent] = useState(null);
   const [activeEventId, setActiveEventId] = useState(null);
 
-  console.log(options?.position);
   useEffect(() => {
     if (center.lat === 0 && center.lng === 0) {
       console.log("loading");
@@ -52,7 +51,7 @@ export default function Home() {
         />,
       );
     }
-  }, [options, center]);
+  }, [options, goEvent, center, options?.position?.lng]);
 
   return (
     <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>

@@ -1,4 +1,4 @@
-// import Image from "next/image";
+import { useEffect } from "react";
 import styles from "../styles/group.module.scss";
 import useQueryShop from "@/hooks/useQueryShop";
 
@@ -11,20 +11,31 @@ export default function GroupQueryShopList({
   latitudeShop,
   longitudeShop,
 }) {
-  const { data: eventList } = useQueryShop(
+  const { data: eventList, mutate } = useQueryShop(
     access_token,
     latitude,
     longitude,
     latitudeShop,
     longitudeShop,
   );
-  console.log(eventList);
+  
   const handleClickEvent = (e, eventId) => {
     e.preventDefault();
     if (!isButtonDisable) {
       setActiveEventId(eventId);
     }
   };
+
+  useEffect(() => {
+    mutate((cachedData) => {
+      if (cachedData) {
+        const updatedData = { ...cachedData };
+        return updatedData;
+      }
+      return cachedData;
+    });
+  }, [longitudeShop, mutate]);
+
   return (
     <div>
       {eventList !== null &&
