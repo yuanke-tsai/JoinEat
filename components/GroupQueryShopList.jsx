@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import styles from "../styles/group.module.scss";
 import useQueryShop from "@/hooks/useQueryShop";
+import LaunchGroup from "./LaunchGroup/LaunchGroup";
 
 export default function GroupQueryShopList({
   setActiveEventId,
@@ -10,6 +11,7 @@ export default function GroupQueryShopList({
   longitude,
   latitudeShop,
   longitudeShop,
+  shop_name,
 }) {
   const { data: eventList, mutate } = useQueryShop(
     access_token,
@@ -18,7 +20,7 @@ export default function GroupQueryShopList({
     latitudeShop,
     longitudeShop,
   );
-  
+
   const handleClickEvent = (e, eventId) => {
     e.preventDefault();
     if (!isButtonDisable) {
@@ -38,7 +40,7 @@ export default function GroupQueryShopList({
 
   return (
     <div>
-      {eventList !== null &&
+      {eventList !== null && eventList?.data?.events.length !== 0 ? (
         eventList?.data?.events.map((event) => (
           <div key={event.event_id}>
             <button
@@ -103,7 +105,14 @@ export default function GroupQueryShopList({
               </div>
             </button>
           </div>
-        ))}
+        ))
+      ) : (
+        <LaunchGroup
+          shop_name={shop_name}
+          latitude={latitudeShop}
+          longitude={longitudeShop}
+        />
+      )}
     </div>
   );
 }

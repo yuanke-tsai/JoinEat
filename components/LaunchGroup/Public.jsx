@@ -13,7 +13,7 @@ export default function Public({ handleClickPublic }) {
           <div className={styles.checkbox}>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox size="small" />}
+                control={<Checkbox size="small" defaultChecked />}
                 onChange={handleClickPublic}
               />
             </FormGroup>

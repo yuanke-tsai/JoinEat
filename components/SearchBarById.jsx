@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "../styles/searchBarById.module.scss";
 
-export default function SearchBarById() {
-  const [searchGroup, setSearchGroup] = useState("");
-  useEffect(() => {
-    // 這裡要 get 可用 swr
-    if (searchGroup !== "") {
-      console.log(searchGroup);
-    }
-  }, [searchGroup]);
+export default function SearchBarById({ searchGroup, setSearchGroup }) {
   return (
     <div className={styles.searchBarPosition}>
       <div className={styles.searchBar}>

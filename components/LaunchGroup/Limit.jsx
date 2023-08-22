@@ -1,16 +1,13 @@
-import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import styles from "../../styles/LaunchGroupTime.module.scss";
 
-export default function Limit() {
-  const hourOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+export default function Limit({ people_limit, setPeopleLimit }) {
+  const peopleOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const [selectHour, setSelectHour] = useState(4);
-
-  const handleClickHour = (e) => {
-    setSelectHour(e.target.value);
+  const handleClick = (e) => {
+    setPeopleLimit(e.target.value);
   };
 
   return (
@@ -24,12 +21,12 @@ export default function Limit() {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={selectHour}
-              onChange={handleClickHour}
+              value={people_limit}
+              onChange={handleClick}
             >
-              {hourOptions.map((hour) => (
-                <MenuItem key={hour} value={hour}>
-                  {hour}
+              {peopleOptions.map((people) => (
+                <MenuItem key={people} value={people}>
+                  {people}
                 </MenuItem>
               ))}
             </Select>
