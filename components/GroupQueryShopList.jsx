@@ -21,9 +21,6 @@ export default function GroupQueryShopList({
     longitudeShop,
   );
 
-  console.log("data\n", eventList);
-  console.log("events 數量", eventList?.data?.events.length);
-
   const handleClickEvent = (e, eventId) => {
     e.preventDefault();
     if (!isButtonDisable) {
