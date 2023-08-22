@@ -91,7 +91,7 @@ export default function Home() {
       ) : (
         <GroupsSearchResult
           groupsSearchResult={groupsSearchResult}
-          setGoEvent={setGoEvent}
+          setActiveEventId={setActiveEventId}
         />
       )}
       {activeEventId && (

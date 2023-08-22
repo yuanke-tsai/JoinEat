@@ -2,7 +2,7 @@ import Group from "./Group";
 import styles from "../styles/groups.module.scss";
 
 export default function GroupsSearchResult({
-  setGoEvent,
+  setActiveEventId,
   isButtonDisable,
   groupsSearchResult,
 }) {
@@ -18,7 +18,8 @@ export default function GroupsSearchResult({
             people_joined={event.people_joined}
             people_limit={event.people_limit}
             eventDistance={event.distance}
-            setGoEvent={setGoEvent}
+            eventId={event.event_id}
+            setActiveEventId={setActiveEventId}
             isButtonDisable={isButtonDisable}
           />
         ))}
