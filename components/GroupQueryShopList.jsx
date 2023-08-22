@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import styles from "../styles/group.module.scss";
 import useQueryShop from "@/hooks/useQueryShop";
 import LaunchGroup from "./LaunchGroup/LaunchGroup";
+import Image from "next/image";
 
 export default function GroupQueryShopList({
   setActiveEventId,
@@ -54,13 +55,13 @@ export default function GroupQueryShopList({
             >
               <div type="submit" className={styles.group}>
                 <div className={styles.basicInfo}>
-                  <picture>
-                    <img
-                      className={styles.userImg}
-                      src="/profileIcon.jpg"
-                      alt="profileIcon"
-                    />
-                  </picture>
+                  <Image
+                    className={styles.userImg}
+                    src="/profileIcon.png"
+                    alt="profileIcon"
+                    width={40}
+                    height={40}
+                  />
                   <div className={styles.time}>
                     <div className={styles.eventTime}>
                       {event.appointment_time !== undefined && (
