@@ -3,14 +3,12 @@
 import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import axios from "axios";
+import styles from "@/styles/groups.module.scss";
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
 import SearchBarById from "@/components/SearchBarById";
 import GroupsSearchResult from "@/components/GroupsSearchResult";
-// import NewGroups from "@/components/NewGroups";
-import LaunchGroup from "@/components/LaunchGroup/LaunchGroup";
 import GroupDetail from "@/components/GroupDetail";
-import useEventList from "@/hooks/useEventList";
 
 export default function Home() {
   const access_token = getCookie("access_token");
@@ -22,6 +20,7 @@ export default function Home() {
   const [keyword, setSearchGroup] = useState("");
   const [groupsSearchResult, setGroupsSearchResult] = useState("");
   const [activeEventId, setActiveEventId] = useState(null);
+  const [openGroup, setOpenGroup] = useState(false);
 
   useEffect(() => {
     if (center.lat === 0 && center.lng === 0) {
@@ -40,13 +39,11 @@ export default function Home() {
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
+          openGroup={openGroup}
+          setOpenGroup={setOpenGroup}
         />,
       );
     } else {
-      // 檢查 options 存不存在
-
-      // 存在 if goEvent <Group mapData />
-      // 不存在 show create group button
       setContent(
         <Groups
           access_token={access_token}
@@ -59,10 +56,12 @@ export default function Home() {
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
+          openGroup={openGroup}
+          setOpenGroup={setOpenGroup}
         />,
       );
     }
-  }, [options, center, options?.position?.lng]);
+  }, [options, center, options?.position?.lng, openGroup]);
 
   useEffect(() => {
     if (keyword !== "") {
@@ -92,14 +91,24 @@ export default function Home() {
         setShopName={setShopName}
       />
 
-      {keyword === "" ? (
-        content
-      ) : (
-        <GroupsSearchResult
-          groupsSearchResult={groupsSearchResult}
-          setActiveEventId={setActiveEventId}
-        />
-      )}
+      <div className={styles.groups}>
+        {!openGroup && (
+          <SearchBarById
+            searchGroup={keyword}
+            setSearchGroup={setSearchGroup}
+          />
+        )}
+        {keyword === "" ? (
+          content
+        ) : (
+          <GroupsSearchResult
+            groupsSearchResult={groupsSearchResult}
+            setActiveEventId={setActiveEventId}
+            keyword={keyword}
+            setSearchGroup={setSearchGroup}
+          />
+        )}
+      </div>
       {activeEventId && (
         <GroupDetail
           center={center}
