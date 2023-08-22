@@ -36,6 +36,7 @@ export default function Home() {
           latitude={center.lat}
           longitude={center.lng}
           position={options?.position}
+          shop_name={shop_name}
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
@@ -51,6 +52,7 @@ export default function Home() {
           latitudeShop={options?.position.lat}
           longitudeShop={options?.position.lng}
           position={options?.position}
+          shop_name={shop_name}
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
@@ -77,6 +79,7 @@ export default function Home() {
         });
     }
   }, [keyword]);
+
   return (
     <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>
       <MapWrapper
