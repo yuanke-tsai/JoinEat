@@ -19,7 +19,6 @@ export default function Home() {
   const [goEvent, setGoEvent] = useState(false);
   const [content, setContent] = useState(null);
 
-  console.log(options?.position);
   useEffect(() => {
     if (options?.position === undefined && center.lat !== 0) {
       if (!goEvent) {
@@ -57,7 +56,7 @@ export default function Home() {
     } else {
       console.log("loading");
     }
-  }, [options, goEvent, center]);
+  }, [options, goEvent, center, options?.position?.lng]);
 
   return (
     <div style={{ position: "relative" }}>
