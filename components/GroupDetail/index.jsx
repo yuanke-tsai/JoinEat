@@ -4,6 +4,7 @@ import Button from "../Button";
 import Cancel from "../Icons/Cancel";
 import styles from "@/styles/groupDetail.module.scss";
 import useEventDetail from "@/hooks/useEventDetail";
+import Group from "../Group";
 
 export default function GroupDetail({
   center,
@@ -49,7 +50,6 @@ export default function GroupDetail({
   return (
     <div className={styles.groupToCenter}>
       <div className={styles.titleBar}>
-        <div className={styles.title}>參加者</div>
         <button
           type="button"
           onClick={() => {
@@ -58,6 +58,21 @@ export default function GroupDetail({
         >
           <Cancel />
         </button>
+      </div>
+      {eventDetail && (
+        <Group
+          eventTime={eventDetail.appointment_time}
+          eventDistance={eventDetail.distance}
+          setActiveEventId={setActiveEventId}
+          eventId={eventDetail.id}
+          shop_name={eventDetail.shop_name}
+          eventName={eventDetail.name}
+          people_limit={eventDetail.people_limit}
+          people_joined={eventDetail.people_joined}
+        />
+      )}
+      <div className={styles.titleBar}>
+        <div className={styles.title}>參加者</div>
       </div>
       <div className={styles.members}>
         {eventDetail?.participants.map((member) => (
