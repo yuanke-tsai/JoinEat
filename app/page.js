@@ -51,7 +51,7 @@ export default function Home() {
         />,
       );
     }
-  }, [options, goEvent, center, options?.position?.lng]);
+  }, [options, center, options?.position?.lng]);
 
   return (
     <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>
