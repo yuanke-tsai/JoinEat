@@ -38,7 +38,7 @@ export default function LaunchGroup({ shop_name, latitude, longitude }) {
   const handleClick = (e) => {
     e.preventDefault();
     setIsLaunch(true);
-    window.location.href = "/";
+    // window.location.href = "/";
     // 送 axios
     axios
       .post(

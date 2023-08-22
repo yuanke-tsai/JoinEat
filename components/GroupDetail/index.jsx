@@ -1,10 +1,13 @@
 import { getCookie } from "cookies-next";
+import { mutate } from "swr";
 import Member from "./Member";
 import Button from "../Button";
 import Cancel from "../Icons/Cancel";
 import styles from "@/styles/groupDetail.module.scss";
 import useEventDetail from "@/hooks/useEventDetail";
 import Group from "../Group";
+import useJoinEvent from "@/hooks/useJoinEvent";
+import useQuitEvent from "@/hooks/useQuitEvent";
 
 export default function GroupDetail({
   center,
@@ -14,9 +17,21 @@ export default function GroupDetail({
 }) {
   const eventDetail = useEventDetail(eventId, center.lat, center.lng);
   const isJoined = eventDetail && eventDetail.is_joined;
+  const joinEvent = useJoinEvent();
+  const quitEvent = useQuitEvent();
 
-  const handleJoined = (e) => {
-    e.preventDefault();
+  const handleJoin = async () => {
+    await joinEvent(eventId);
+    mutate(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events`);
+    mutate(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events/shop`);
+    setActiveEventId(null);
+  };
+
+  const handleQuit = async () => {
+    await quitEvent(eventId);
+    mutate(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events`);
+    mutate(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events/shop`);
+    setActiveEventId(null);
   };
 
   const handleCopy = (e) => {
@@ -41,9 +56,9 @@ export default function GroupDetail({
     );
   } else {
     content = isJoined ? (
-      <Button text="取消" callback={handleJoined} />
+      <Button text="退出" callback={handleQuit} />
     ) : (
-      <Button text="加入" callback={handleJoined} />
+      <Button text="加入" callback={handleJoin} />
     );
   }
 
