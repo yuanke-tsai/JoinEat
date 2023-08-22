@@ -9,11 +9,11 @@ import GroupQueryShopList from "./GroupQueryShopList";
 
 export default function Groups({
   access_token,
-  setGoEvent,
   isButtonDisable,
   latitude,
   longitude,
   position,
+  setActiveEventId,
 }) {
   // let eventList;
   const [content, setContent] = useState();
@@ -23,7 +23,7 @@ export default function Groups({
       // const { data: eventList } = useEventList(access_token, latitude, longitude);
       setContent(
         <GroupEventsList
-          setGoEvent={setGoEvent}
+          setActiveEventId={setActiveEventId}
           isButtonDisable={isButtonDisable}
           access_token={access_token}
           latitude={latitude}
@@ -34,7 +34,7 @@ export default function Groups({
       console.log("check", position);
       setContent(
         <GroupQueryShopList
-          setGoEvent={setGoEvent}
+          setActiveEventId={setActiveEventId}
           isButtonDisable={isButtonDisable}
           access_token={access_token}
           latitude={latitude}
@@ -54,7 +54,6 @@ export default function Groups({
   }, [
     position,
     access_token,
-    setGoEvent,
     isButtonDisable,
     latitude,
     longitude,

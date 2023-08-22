@@ -14,12 +14,12 @@ import useProfile from "@/hooks/useProfile";
 import useHistory from "@/hooks/useHistory";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 
-export default function LoginPage({ params }) {
+export default function ProfilePage({ params }) {
   const [isEditing, setIsEditing] = useState(false);
   const introductionRef = useRef(null);
   const tagsRef = useRef(null);
   const profile = useProfile(params.id);
-  const events = useHistory(params.id);
+  const events = useHistory(params.id, 0, 0);
   const updateProfile = useUpdateProfile();
   const { mutate } = useSWRConfig();
 
@@ -27,6 +27,8 @@ export default function LoginPage({ params }) {
   useEffect(() => {
     setEditable(params.id === getCookie("user_id"));
   }, [params.id]);
+
+  console.log(profile?.image);
 
   return (
     <div className={styles.page}>
@@ -49,11 +51,7 @@ export default function LoginPage({ params }) {
           <div className={styles.buffer} />
         )}
       </div>
-      <Image
-        src={profile?.picture ?? "/profileIcon.png"}
-        width={80}
-        height={80}
-      />
+      <Image src="/profileIcon.png" width={80} height={80} />
       <div className={styles.name}>{profile?.name}</div>
       {isEditing ? (
         <>
@@ -121,7 +119,7 @@ export default function LoginPage({ params }) {
           events.map((event) => (
             <Group
               eventTime={event.appointment_time}
-              eventDistance={event.distance}
+              eventDistance={null}
               setGoEvent={null}
               isButtonDisable
               shop_name={event.shop_name}

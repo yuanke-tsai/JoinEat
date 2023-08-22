@@ -43,5 +43,11 @@
 
   .content {
     margin-top: 1.5rem;
+
+    .buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
   }
 }

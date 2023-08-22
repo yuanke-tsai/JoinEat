@@ -72,7 +72,9 @@ export default function Group({
                 />
               </picture>
             </div>
-            <div className={styles.distance}>{eventDistance}m</div>
+            {eventDistance && (
+              <div className={styles.distance}>{eventDistance}m</div>
+            )}
           </div>
         </div>
       </button>

@@ -1,41 +1,43 @@
-import { useState } from "react";
+import { getCookie } from "cookies-next";
 import Member from "./Member";
 import Button from "../Button";
-import styles from "@/styles/groupDetail.module.scss";
 import Cancel from "../Icons/Cancel";
+import styles from "@/styles/groupDetail.module.scss";
+import useEventDetail from "@/hooks/useEventDetail";
 
-export default function GroupDetail({ setGoEvent }) {
-  const event_user = "tsai";
-  const user = "robot";
-  const [isJoined, setIsJoined] = useState(false);
+export default function GroupDetail({ center, setActiveEventId, eventId }) {
+  const eventDetail = useEventDetail(eventId, center.lat, center.lng);
+  const isJoined = eventDetail && eventDetail.is_joined;
+
   const handleJoined = (e) => {
     e.preventDefault();
-    setIsJoined(!isJoined);
   };
+
   const handleCopy = (e) => {
     e.preventDefault();
     // 執行copy
   };
+
   const handleDeletEvent = (e) => {
     e.preventDefault();
     // 執行 axios.delete
   };
 
   let content = null;
-  const isLauncher = event_user === user;
+  const isLauncher =
+    eventDetail && eventDetail.host_id === getCookie("user_id");
   if (isLauncher) {
     content = (
-      <div className={styles.groupDecision}>
-        <Button text="複製團號" callback={handleCopy} status={isJoined} />
-        <div style={{ width: "2%", margin: "0 2%" }} />
-        <Button text="解散此團" callback={handleDeletEvent} status={isJoined} />
+      <div className={styles.buttons}>
+        <Button text="複製團號" callback={handleCopy} />
+        <Button text="解散此團" callback={handleDeletEvent} />
       </div>
     );
   } else {
     content = isJoined ? (
-      <Button text="取消" callback={handleJoined} status={isJoined} />
+      <Button text="取消" callback={handleJoined} />
     ) : (
-      <Button text="加入" callback={handleJoined} status={isJoined} />
+      <Button text="加入" callback={handleJoined} />
     );
   }
 
@@ -46,19 +48,16 @@ export default function GroupDetail({ setGoEvent }) {
         <button
           type="button"
           onClick={() => {
-            setGoEvent(false);
+            setActiveEventId(null);
           }}
         >
           <Cancel />
         </button>
       </div>
       <div className={styles.members}>
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
+        {eventDetail?.participants.map((member) => (
+          <Member key={member.id} name={member.name} picture={member.picture} />
+        ))}
       </div>
       <div className={styles.content}>{content}</div>
     </div>

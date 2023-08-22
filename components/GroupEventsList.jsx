@@ -3,7 +3,7 @@ import styles from "../styles/group.module.scss";
 import useEventList from "@/hooks/useEventList";
 
 export default function GroupEventsList({
-  setGoEvent,
+  setActiveEventId,
   isButtonDisable,
   access_token,
   latitude,
@@ -11,10 +11,11 @@ export default function GroupEventsList({
 }) {
   const { data: eventList } = useEventList(access_token, latitude, longitude);
   console.log(eventList);
-  const handleClickEvent = (e) => {
+  const handleClickEvent = (e, eventId) => {
     e.preventDefault();
+
     if (!isButtonDisable) {
-      setGoEvent(true);
+      setActiveEventId(eventId);
     }
   };
   return (
@@ -29,7 +30,7 @@ export default function GroupEventsList({
                 backgroundColor: "transparent",
                 cursor: "pointer",
               }}
-              onClick={handleClickEvent}
+              onClick={(e) => handleClickEvent(e, event.event_id)}
             >
               <div type="submit" className={styles.group}>
                 <div className={styles.basicInfo}>

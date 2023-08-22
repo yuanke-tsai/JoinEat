@@ -15,8 +15,8 @@ export default function Home() {
   const [shop_name, setShopName] = useState();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const [isNewGroup, setIsNewGroup] = useState(false);
-  const [goEvent, setGoEvent] = useState(false);
   const [content, setContent] = useState(null);
+  const [activeEventId, setActiveEventId] = useState(null);
 
   console.log(options?.position);
   useEffect(() => {
@@ -25,14 +25,14 @@ export default function Home() {
       return;
     }
 
-    if (!options?.position && !goEvent) {
+    if (!options?.position && !activeEventId) {
       setContent(
         <Groups
           access_token={access_token}
-          setGoEvent={setGoEvent}
           latitude={center.lat}
           longitude={center.lng}
           position={options?.position}
+          setActiveEventId={setActiveEventId}
         />,
       );
     } else {
@@ -43,16 +43,16 @@ export default function Home() {
       setContent(
         <Groups
           access_token={access_token}
-          setGoEvent={setGoEvent}
           latitude={center.lat}
           longitude={center.lng}
-          latitudeShop={options.position.lng}
-          longitudeShop={options.position.lng}
+          latitudeShop={options?.position.lat}
+          longitudeShop={options?.position.lng}
           position={options?.position}
+          setActiveEventId={setActiveEventId}
         />,
       );
     }
-  }, [options, goEvent, center]);
+  }, [options, center]);
 
   return (
     <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>
@@ -64,7 +64,13 @@ export default function Home() {
         setShopName={setShopName}
       />
       {content}
-      {goEvent && <GroupDetail setGoEvent={setGoEvent} />}
+      {activeEventId && (
+        <GroupDetail
+          center={center}
+          setActiveEventId={setActiveEventId}
+          eventId={activeEventId}
+        />
+      )}
       {/* <Groups setGoEvent={setGoEvent} />
       {!isNewGroup ? (
         <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />
