@@ -23,7 +23,7 @@ export default function useQueryShop(
     return response.data;
   };
 
-  const { data, error, isValidating } = useSWR(url, fetcher);
+  const { data, mutate, isValidating } = useSWR(url, fetcher);
 
-  return { data, isLoading: isValidating };
+  return { data, mutate, isLoading: isValidating };
 }
