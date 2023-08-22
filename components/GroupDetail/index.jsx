@@ -8,6 +8,7 @@ import useEventDetail from "@/hooks/useEventDetail";
 import Group from "../Group";
 import useJoinEvent from "@/hooks/useJoinEvent";
 import useQuitEvent from "@/hooks/useQuitEvent";
+import useDeleteEvent from "@/hooks/useDeleteEvent";
 
 export default function GroupDetail({
   center,
@@ -19,6 +20,7 @@ export default function GroupDetail({
   const isJoined = eventDetail && eventDetail.is_joined;
   const joinEvent = useJoinEvent();
   const quitEvent = useQuitEvent();
+  const deleteEvent = useDeleteEvent();
 
   const handleJoin = async () => {
     await joinEvent(eventId);
@@ -39,9 +41,11 @@ export default function GroupDetail({
     // 執行copy
   };
 
-  const handleDeletEvent = (e) => {
-    e.preventDefault();
-    // 執行 axios.delete
+  const handleDeletEvent = () => {
+    deleteEvent(eventId);
+    mutate(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events`);
+    mutate(`${process.env.NEXT_PUBLIC_API_DOMAIN}/events/shop`);
+    setActiveEventId(null);
   };
 
   let content = null;
