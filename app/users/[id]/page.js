@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getCookie } from "cookies-next";
+import { useSWRConfig } from "swr";
 
 import styles from "@/styles/user.module.scss";
 import Edit from "@/components/Icons/Edit";
@@ -20,6 +21,7 @@ export default function LoginPage({ params }) {
   const profile = useProfile(params.id);
   const events = useHistory(params.id);
   const updateProfile = useUpdateProfile();
+  const { mutate } = useSWRConfig();
 
   const [editable, setEditable] = useState(false);
   useEffect(() => {
@@ -78,12 +80,13 @@ export default function LoginPage({ params }) {
             <button
               className={styles.black}
               type="button"
-              onClick={() => {
-                updateProfile(
-                  profile.name,
+              onClick={async () => {
+                await updateProfile(
                   introductionRef.current.value,
                   tagsRef.current.value,
                 );
+                const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
+                mutate(`${apiDomain}/users/${profile.id}`);
                 setIsEditing(false);
               }}
             >
@@ -123,7 +126,7 @@ export default function LoginPage({ params }) {
               isButtonDisable
               shop_name={event.shop_name}
               eventName={event.name}
-              people_joined={event.people_num}
+              people_joined={event.people_joined}
               people_limit={event.people_limit}
             />
           ))}

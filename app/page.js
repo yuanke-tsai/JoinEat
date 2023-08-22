@@ -4,10 +4,9 @@ import { lazy, useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
-import SearchBarById from "@/components/SearchBarById";
 // import NewGroups from "@/components/NewGroups";
 import LaunchGroup from "@/components/LaunchGroup/LaunchGroup";
-import CandidateList from "@/components/Candidate/CandidateList";
+import GroupDetail from "@/components/GroupDetail";
 import useEventList from "@/hooks/useEventList";
 
 export default function Home() {
@@ -23,21 +22,21 @@ export default function Home() {
   const [content, setContent] = useState(null);
 
   useEffect(() => {
-    if (options?.position === undefined && center.lat !== 0) {
-      if (!goEvent) {
-        setContent(
-          <Groups
-            access_token={access_token}
-            setGoEvent={setGoEvent}
-            latitude={center.lat}
-            longitude={center.lng}
-          />,
-        );
-      } else {
-        setContent(<CandidateList />);
-      }
+    if (center.lat === 0 && center.lng === 0) {
+      console.log("loading");
+      return;
     }
-    if (options?.position !== undefined && center.lat !== 0) {
+
+    if (!options?.position && !goEvent) {
+      setContent(
+        <Groups
+          access_token={access_token}
+          setGoEvent={setGoEvent}
+          latitude={center.lat}
+          longitude={center.lng}
+        />,
+      );
+    } else {
       // 檢查 options 存不存在
 
       // 存在 if goEvent <Group mapData />
@@ -49,8 +48,6 @@ export default function Home() {
           longitude={options?.position?.lng}
         />,
       );
-    } else {
-      console.log("loading");
     }
   }, [options, goEvent, center]);
 
@@ -61,7 +58,7 @@ export default function Home() {
   //     <LaunchGroup />
   //   );
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>
       <MapWrapper
         center={center}
         setCenter={setCenter}
@@ -69,8 +66,8 @@ export default function Home() {
         setOptions={setOptions}
         setShopName={setShopName}
       />
-      <SearchBarById />
       {content}
+      {goEvent && <GroupDetail setGoEvent={setGoEvent} />}
       {/* <Groups setGoEvent={setGoEvent} />
       {!isNewGroup ? (
         <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />

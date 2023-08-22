@@ -1,6 +1,7 @@
 import Group from "./Group";
 import useEventList from "@/hooks/useEventList";
 import styles from "../styles/groups.module.scss";
+import SearchBarById from "./SearchBarById";
 
 export default function Groups({
   access_token,
@@ -13,6 +14,7 @@ export default function Groups({
   console.log(eventList);
   return (
     <div className={styles.groups}>
+      <SearchBarById />
       {eventList !== null &&
         eventList?.data?.data?.events.map((event) => (
           <Group

@@ -1,0 +1,11 @@
+.member {
+  flex-basis: calc(25% - 1rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .name {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+}
