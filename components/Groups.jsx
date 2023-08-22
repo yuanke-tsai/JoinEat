@@ -3,16 +3,17 @@ import Group from "./Group";
 import useEventList from "@/hooks/useEventList";
 import useQueryShop from "@/hooks/useQueryShop";
 import styles from "../styles/groups.module.scss";
+import SearchBarById from "./SearchBarById";
 import GroupEventsList from "./GroupEventsList";
 import GroupQueryShopList from "./GroupQueryShopList";
 
 export default function Groups({
   access_token,
-  setGoEvent,
   isButtonDisable,
   latitude,
   longitude,
   position,
+  setActiveEventId,
 }) {
   // let eventList;
   const [content, setContent] = useState();
@@ -22,7 +23,7 @@ export default function Groups({
       // const { data: eventList } = useEventList(access_token, latitude, longitude);
       setContent(
         <GroupEventsList
-          setGoEvent={setGoEvent}
+          setActiveEventId={setActiveEventId}
           isButtonDisable={isButtonDisable}
           access_token={access_token}
           latitude={latitude}
@@ -33,7 +34,7 @@ export default function Groups({
       console.log('has position')
       setContent(
         <GroupQueryShopList
-          setGoEvent={setGoEvent}
+          setActiveEventId={setActiveEventId}
           isButtonDisable={isButtonDisable}
           access_token={access_token}
           latitude={latitude}
@@ -47,7 +48,6 @@ export default function Groups({
     position,
     position?.lat,
     access_token,
-    setGoEvent,
     isButtonDisable,
     latitude,
     longitude,
@@ -55,6 +55,7 @@ export default function Groups({
 
   return (
     <div className={styles.groups}>
+      <SearchBarById />
       {content}
       {/* {position === undefined ? (
         <GroupEventsList

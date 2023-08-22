@@ -1,0 +1,53 @@
+.groupToCenter {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid #a0a0a0;
+  width: 100%;
+  height: 70vh;
+  position: absolute;
+  border-radius: 20px;
+  bottom: 0;
+
+  .titleBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+
+    .title {
+      margin: 1rem 0;
+      color: #000;
+      font-family: Inter;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    button {
+      border: none;
+      background-color: white;
+      cursor: pointer;
+    }
+  }
+
+  .members {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .content {
+    margin-top: 1.5rem;
+
+    .buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+  }
+}

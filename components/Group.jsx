@@ -4,8 +4,8 @@ import styles from "../styles/group.module.scss";
 export default function Group({
   eventTime,
   eventDistance,
-  setGoEvent,
-  isButtonDisable,
+  setActiveEventId,
+  eventId,
   shop_name,
   eventName,
   people_joined,
@@ -13,10 +13,9 @@ export default function Group({
 }) {
   const handleClickEvent = (e) => {
     e.preventDefault();
-    if (!isButtonDisable) {
-      setGoEvent(true);
-    }
+    setActiveEventId(eventId);
   };
+
   return (
     <div>
       <button
@@ -72,7 +71,9 @@ export default function Group({
                 />
               </picture>
             </div>
-            <div className={styles.distance}>{eventDistance}m</div>
+            {eventDistance && (
+              <div className={styles.distance}>{eventDistance}m</div>
+            )}
           </div>
         </div>
       </button>

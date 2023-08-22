@@ -4,10 +4,9 @@ import { lazy, useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import MapWrapper from "@/components/MapWrapper";
 import Groups from "@/components/Groups";
-import SearchBarById from "@/components/SearchBarById";
 // import NewGroups from "@/components/NewGroups";
 import LaunchGroup from "@/components/LaunchGroup/LaunchGroup";
-import CandidateList from "@/components/Candidate/CandidateList";
+import GroupDetail from "@/components/GroupDetail";
 import useEventList from "@/hooks/useEventList";
 
 export default function Home() {
@@ -16,50 +15,46 @@ export default function Home() {
   const [shop_name, setShopName] = useState();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const [isNewGroup, setIsNewGroup] = useState(false);
-  const [goEvent, setGoEvent] = useState(false);
   const [content, setContent] = useState(null);
+  const [activeEventId, setActiveEventId] = useState(null);
 
   useEffect(() => {
-    if (options?.position === undefined && center.lat !== 0) {
-      if (!goEvent) {
-        setContent(
-          <Groups
-            access_token={access_token}
-            setGoEvent={setGoEvent}
-            latitude={center.lat}
-            longitude={center.lng}
-            position={options?.position}
-          />,
-        );
-      } else {
-        setContent(<CandidateList />);
-      }
-    }
-    if (options?.position !== undefined && center.lat !== 0) {
-      // console.log(center.lat)
-      // 拿position 去做 Groups，如果沒有東西則...
-      if (!goEvent) {
-        setContent(
-          <Groups
-            access_token={access_token}
-            setGoEvent={setGoEvent}
-            latitude={center.lat}
-            longitude={center.lng}
-            latitudeShop={options.position.lng}
-            longitudeShop={options.position.lng}
-            position={options?.position}
-          />,
-        );
-      } else {
-        setContent(<CandidateList />);
-      }
-    } else {
+    if (center.lat === 0 && center.lng === 0) {
       console.log("loading");
+      return;
     }
-  }, [options, goEvent, center, options?.position?.lng]);
+
+    if (!options?.position && !activeEventId) {
+      setContent(
+        <Groups
+          access_token={access_token}
+          latitude={center.lat}
+          longitude={center.lng}
+          position={options?.position}
+          setActiveEventId={setActiveEventId}
+        />,
+      );
+    } else {
+      // 檢查 options 存不存在
+
+      // 存在 if goEvent <Group mapData />
+      // 不存在 show create group button
+      setContent(
+        <Groups
+          access_token={access_token}
+          latitude={center.lat}
+          longitude={center.lng}
+          latitudeShop={options?.position.lat}
+          longitudeShop={options?.position.lng}
+          position={options?.position}
+          setActiveEventId={setActiveEventId}
+        />,
+      );
+    }
+  }, [options, center, options?.position?.lng]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", overflow: "hidden", height: "100%" }}>
       <MapWrapper
         center={center}
         setCenter={setCenter}
@@ -67,8 +62,14 @@ export default function Home() {
         setOptions={setOptions}
         setShopName={setShopName}
       />
-      <SearchBarById />
       {content}
+      {activeEventId && (
+        <GroupDetail
+          center={center}
+          setActiveEventId={setActiveEventId}
+          eventId={activeEventId}
+        />
+      )}
       {/* <Groups setGoEvent={setGoEvent} />
       {!isNewGroup ? (
         <NewGroups setIsNewGroup={setIsNewGroup} setGoEvent={setGoEvent} />

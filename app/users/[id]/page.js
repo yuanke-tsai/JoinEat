@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getCookie } from "cookies-next";
+import { useSWRConfig } from "swr";
 
 import styles from "@/styles/user.module.scss";
 import Edit from "@/components/Icons/Edit";
@@ -12,19 +13,24 @@ import Group from "@/components/Group";
 import useProfile from "@/hooks/useProfile";
 import useHistory from "@/hooks/useHistory";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
+import GroupDetail from "@/components/GroupDetail";
 
-export default function LoginPage({ params }) {
+export default function ProfilePage({ params }) {
   const [isEditing, setIsEditing] = useState(false);
   const introductionRef = useRef(null);
   const tagsRef = useRef(null);
   const profile = useProfile(params.id);
-  const events = useHistory(params.id);
+  const events = useHistory(params.id, 0, 0);
   const updateProfile = useUpdateProfile();
+  const { mutate } = useSWRConfig();
+  const [activeEventId, setActiveEventId] = useState(null);
 
   const [editable, setEditable] = useState(false);
   useEffect(() => {
     setEditable(params.id === getCookie("user_id"));
   }, [params.id]);
+
+  console.log(profile?.image);
 
   return (
     <div className={styles.page}>
@@ -47,11 +53,7 @@ export default function LoginPage({ params }) {
           <div className={styles.buffer} />
         )}
       </div>
-      <Image
-        src={profile?.picture ?? "/profileIcon.png"}
-        width={80}
-        height={80}
-      />
+      <Image src="/profileIcon.png" width={80} height={80} />
       <div className={styles.name}>{profile?.name}</div>
       {isEditing ? (
         <>
@@ -78,12 +80,13 @@ export default function LoginPage({ params }) {
             <button
               className={styles.black}
               type="button"
-              onClick={() => {
-                updateProfile(
-                  profile.name,
+              onClick={async () => {
+                await updateProfile(
                   introductionRef.current.value,
                   tagsRef.current.value,
                 );
+                const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
+                mutate(`${apiDomain}/users/${profile.id}`);
                 setIsEditing(false);
               }}
             >
@@ -118,16 +121,24 @@ export default function LoginPage({ params }) {
           events.map((event) => (
             <Group
               eventTime={event.appointment_time}
-              eventDistance={event.distance}
-              setGoEvent={null}
-              isButtonDisable
+              eventDistance={null}
+              setActiveEventId={setActiveEventId}
+              eventId={event.id}
               shop_name={event.shop_name}
               eventName={event.name}
-              people_joined={event.people_num}
+              people_joined={event.people_joined}
               people_limit={event.people_limit}
             />
           ))}
       </div>
+      {activeEventId && (
+        <GroupDetail
+          center={{ lat: 0, lng: 0 }}
+          setActiveEventId={setActiveEventId}
+          isHistory
+          eventId={activeEventId}
+        />
+      )}
     </div>
   );
 }
