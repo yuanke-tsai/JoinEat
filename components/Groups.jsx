@@ -31,7 +31,7 @@ export default function Groups({
         />,
       );
     } else {
-      console.log('has position')
+      console.log("has position");
       setContent(
         <GroupQueryShopList
           setActiveEventId={setActiveEventId}

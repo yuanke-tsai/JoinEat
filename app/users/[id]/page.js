@@ -24,6 +24,26 @@ export default function ProfilePage({ params }) {
   const updateProfile = useUpdateProfile();
   const { mutate } = useSWRConfig();
   const [activeEventId, setActiveEventId] = useState(null);
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+
+  function success(pos) {
+    setCenter({
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+    });
+  }
+
+  function error() {
+    console.log("無法取得您的位置，請開啟位置存取權限");
+  }
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      console.log("Geolocation not supported");
+    }
+  }, []);
 
   const [editable, setEditable] = useState(false);
   useEffect(() => {
@@ -133,7 +153,7 @@ export default function ProfilePage({ params }) {
       </div>
       {activeEventId && (
         <GroupDetail
-          center={{ lat: 0, lng: 0 }}
+          center={center}
           setActiveEventId={setActiveEventId}
           isHistory
           eventId={activeEventId}
