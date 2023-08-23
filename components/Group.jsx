@@ -1,7 +1,9 @@
 import Image from "next/image";
 import styles from "../styles/group.module.scss";
+import useProfile from "@/hooks/useProfile";
 
 export default function Group({
+  hostId,
   eventTime,
   eventDistance,
   setActiveEventId,
@@ -14,9 +16,10 @@ export default function Group({
 }) {
   const handleClickEvent = (e) => {
     e.preventDefault();
-    console.log("event id: ", eventId);
     setActiveEventId(eventId);
   };
+
+  const profile = useProfile(hostId);
 
   return (
     <div>
@@ -28,13 +31,14 @@ export default function Group({
       >
         <div type="submit" className={styles.group}>
           <div className={styles.basicInfo}>
-            <Image
-              className={styles.userImg}
-              src="/profileIcon.png"
-              alt="profileIcon"
-              width={40}
-              height={40}
-            />
+            <div className={styles.imageWrapper}>
+              <Image
+                className={styles.userImg}
+                src={profile?.picture ?? "/profileIcon.png"}
+                alt="profileIcon"
+                fill
+              />
+            </div>
             <div className={styles.time}>
               <div className={styles.eventTime}>
                 {eventTime !== undefined && (

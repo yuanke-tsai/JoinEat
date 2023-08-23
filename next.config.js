@@ -31,4 +31,12 @@ module.exports = {
   redirects,
   nextConfig,
   eslint: { ignoreDuringBuilds: true },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "13.54.3.89",
+      },
+    ],
+  },
 };

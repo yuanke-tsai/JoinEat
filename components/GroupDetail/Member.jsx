@@ -6,12 +6,14 @@ export default function Member({ id, name, picture }) {
   return (
     <div className={styles.member}>
       <Link href={`/users/${id}`}>
-        <Image
-          width={50}
-          height={50}
-          src={picture ?? "/profileIcon.png"}
-          alt="user"
-        />
+        <div className={styles.imageWrapper}>
+          <Image
+            fill
+            src={picture ?? "/profileIcon.png"}
+            alt="user"
+            className={styles.image}
+          />
+        </div>
       </Link>
       <div className={styles.name}>{name}</div>
     </div>

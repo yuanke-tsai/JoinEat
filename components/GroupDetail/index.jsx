@@ -84,6 +84,7 @@ export default function GroupDetail({
       </div>
       {eventDetail && (
         <Group
+          hostId={eventDetail.host_id}
           eventTime={eventDetail.appointment_time}
           eventDistance={eventDetail.distance}
           setActiveEventId={setActiveEventId}
