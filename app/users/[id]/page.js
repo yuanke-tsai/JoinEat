@@ -57,7 +57,12 @@ export default function ProfilePage({ params }) {
   return (
     <div className={styles.page}>
       {showModal && (
-        <Modal userId={profile?.id} file={file} setShowModal={setShowModal} />
+        <Modal
+          userId={profile?.id}
+          file={file}
+          setFile={setFile}
+          setShowModal={setShowModal}
+        />
       )}
       <div className={styles.titleBar}>
         <Link href="/" className={styles.button}>
