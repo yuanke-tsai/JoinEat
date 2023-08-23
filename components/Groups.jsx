@@ -17,12 +17,11 @@ export default function Groups({
   position,
   shop_name,
   setActiveEventId,
-  keyword,
-  setSearchGroup,
+  openGroup,
+  setOpenGroup,
 }) {
   const text = "開新團";
   const [content, setContent] = useState();
-  const [openGroup, setOpenGroup] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -70,15 +69,9 @@ export default function Groups({
   ]);
 
   return (
-    <div className={styles.groups}>
-      {openGroup === false ? (
-        <div>
-          <SearchBarById
-            searchGroup={keyword}
-            setSearchGroup={setSearchGroup}
-          />
-          {content}
-        </div>
+    <>
+      {!openGroup ? (
+        content
       ) : (
         <LaunchGroup
           shop_name={shop_name}
@@ -88,6 +81,6 @@ export default function Groups({
         />
       )}
       {/* if render launch */}
-    </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 // import Image from "next/image";
+import Image from "next/image";
 import styles from "../styles/group.module.scss";
 import useEventList from "@/hooks/useEventList";
 
@@ -34,13 +35,13 @@ export default function GroupEventsList({
             >
               <div type="submit" className={styles.group}>
                 <div className={styles.basicInfo}>
-                  <picture>
-                    <img
-                      className={styles.userImg}
-                      src="/profileIcon.jpg"
-                      alt="profileIcon"
-                    />
-                  </picture>
+                  <Image
+                    className={styles.userImg}
+                    src="/profileIcon.png"
+                    alt="profileIcon"
+                    width={40}
+                    height={40}
+                  />
                   <div className={styles.time}>
                     <div className={styles.eventTime}>
                       {event.appointment_time !== undefined && (
