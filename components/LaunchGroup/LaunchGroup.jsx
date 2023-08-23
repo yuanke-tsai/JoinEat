@@ -31,6 +31,7 @@ export default function LaunchGroup({
   const [minute, setMinute] = useState(minuteOptions[0]);
   const [people_limit, setPeopleLimit] = useState(1);
   const appointment_time = { year, month, date, hour, minute };
+  const eventTime = { month, date, hour, minute };
 
   const handleClickPublic = () => {
     setIsPublic(!is_public);
@@ -89,6 +90,10 @@ export default function LaunchGroup({
         isButtonDisable={isButtonDisable}
         shop_name={shop_name}
         eventName={event_name}
+        eventTime={eventTime}
+        people_joined={1}
+        // eventDistance={year}
+        people_limit={people_limit}
       />
       <EventName eventName={event_name} callback={handleEventName} />
       <Time
