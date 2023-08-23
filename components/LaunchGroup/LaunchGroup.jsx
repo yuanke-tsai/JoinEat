@@ -43,7 +43,6 @@ export default function LaunchGroup({
   const handleClick = (e) => {
     e.preventDefault();
     setIsLaunch(true);
-    // window.location.href = "/";
     axios
       .post(
         `${process.env.NEXT_PUBLIC_API_DOMAIN}/events/`,
@@ -70,6 +69,7 @@ export default function LaunchGroup({
         console.log("出現錯誤!");
         console.log(error);
       });
+    window.location.href = "/";
   };
 
   console.log(event_name);
