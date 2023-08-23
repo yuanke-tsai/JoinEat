@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 // import Group from "./Group";
 // import useEventList from "@/hooks/useEventList";
 // import useQueryShop from "@/hooks/useQueryShop";
-import styles from "../styles/groups.module.scss";
-import SearchBarById from "./SearchBarById";
+// import styles from "../styles/groups.module.scss";
+// import SearchBarById from "./SearchBarById";
 import GroupEventsList from "./GroupEventsList";
 import GroupQueryShopList from "./GroupQueryShopList";
 import Button from "./Button";
@@ -27,6 +27,7 @@ export default function Groups({
     e.preventDefault();
     setOpenGroup(true);
   };
+  console.log("openGroup", openGroup);
 
   useEffect(() => {
     if (position === undefined) {
@@ -51,6 +52,8 @@ export default function Groups({
             latitudeShop={position.lat}
             longitudeShop={position.lng}
             shop_name={shop_name}
+            openGroup={openGroup}
+            setOpenGroup={setOpenGroup}
           />
           <Button text={text} callback={handleClick} />
         </>,

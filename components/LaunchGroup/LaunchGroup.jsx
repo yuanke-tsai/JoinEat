@@ -30,7 +30,6 @@ export default function LaunchGroup({
   const [hour, setHour] = useState(hourOptions[0]);
   const [minute, setMinute] = useState(minuteOptions[0]);
   const [people_limit, setPeopleLimit] = useState(1);
-
   const appointment_time = { year, month, date, hour, minute };
 
   const handleClickPublic = () => {
@@ -45,7 +44,6 @@ export default function LaunchGroup({
     e.preventDefault();
     setIsLaunch(true);
     // window.location.href = "/";
-    // 送 axios
     axios
       .post(
         `${process.env.NEXT_PUBLIC_API_DOMAIN}/events/`,

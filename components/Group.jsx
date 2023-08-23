@@ -1,4 +1,3 @@
-// import Image from "next/image";
 import Image from "next/image";
 import styles from "../styles/group.module.scss";
 
@@ -11,6 +10,7 @@ export default function Group({
   eventName,
   people_joined,
   people_limit,
+  isButtonDisable,
 }) {
   const handleClickEvent = (e) => {
     e.preventDefault();
@@ -21,12 +21,9 @@ export default function Group({
   return (
     <div>
       <button
+        className={styles.button}
         type="submit"
-        style={{
-          border: "none",
-          backgroundColor: "transparent",
-          cursor: "pointer",
-        }}
+        disabled={isButtonDisable}
         onClick={handleClickEvent}
       >
         <div type="submit" className={styles.group}>
@@ -45,7 +42,6 @@ export default function Group({
                     {eventTime.hour}:{eventTime.minute}
                   </p>
                 )}
-                {/* {eventTime.hour}:{eventTime.minute} */}
               </div>
               <div className={styles.eventDate}>
                 {eventTime !== undefined && (
