@@ -40,7 +40,6 @@ export default function Home() {
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
-          shop_name={shop_name}
         />,
       );
     } else {
@@ -56,7 +55,6 @@ export default function Home() {
           setActiveEventId={setActiveEventId}
           keyword={keyword}
           setSearchGroup={setSearchGroup}
-          shop_name={shop_name}
         />,
       );
     }

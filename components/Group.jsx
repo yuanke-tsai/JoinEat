@@ -11,6 +11,7 @@ export default function Group({
   eventName,
   people_joined,
   people_limit,
+  isButtonDisable,
 }) {
   const handleClickEvent = (e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ export default function Group({
     <div>
       <button
         type="submit"
+        disabled={isButtonDisable}
         style={{
           border: "none",
           backgroundColor: "transparent",

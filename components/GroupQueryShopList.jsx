@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import styles from "../styles/group.module.scss";
 import useQueryShop from "@/hooks/useQueryShop";
 import LaunchGroup from "./LaunchGroup/LaunchGroup";
+import Button from "./Button";
 
 export default function GroupQueryShopList({
   setActiveEventId,
@@ -11,7 +12,6 @@ export default function GroupQueryShopList({
   longitude,
   latitudeShop,
   longitudeShop,
-  shop_name,
 }) {
   const { data: eventList, mutate } = useQueryShop(
     access_token,
@@ -107,11 +107,9 @@ export default function GroupQueryShopList({
           </div>
         ))
       ) : (
-        <LaunchGroup
-          shop_name={shop_name}
-          latitude={latitudeShop}
-          longitude={longitudeShop}
-        />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          成為第一個團長嗎～
+        </div>
       )}
     </div>
   );

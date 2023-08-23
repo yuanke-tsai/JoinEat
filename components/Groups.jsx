@@ -28,6 +28,7 @@ export default function Groups({
     e.preventDefault();
     setOpenGroup(true);
   };
+  console.log("openGroup", openGroup);
 
   useEffect(() => {
     if (position === undefined) {
@@ -52,6 +53,8 @@ export default function Groups({
             latitudeShop={position.lat}
             longitudeShop={position.lng}
             shop_name={shop_name}
+            openGroup={openGroup}
+            setOpenGroup={setOpenGroup}
           />
           <Button text={text} callback={handleClick} />
         </>,
