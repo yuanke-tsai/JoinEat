@@ -14,6 +14,7 @@ export default function MapWrapper({
   options,
   setOptions,
   setShopName,
+  setActiveEventId,
 }) {
   function success(pos) {
     setCenter({
@@ -49,8 +50,13 @@ export default function MapWrapper({
       render={render}
       libraries={["places"]}
     >
-      <Map center={center} setOptions={setOptions} setShopName={setShopName}>
-        <Marker options={options} />
+      <Map
+        center={center}
+        setOptions={setOptions}
+        setShopName={setShopName}
+        setActiveEventId={setActiveEventId}
+      >
+        <Marker options={options} setShopName={setShopName} />
       </Map>
     </Wrapper>
   );
