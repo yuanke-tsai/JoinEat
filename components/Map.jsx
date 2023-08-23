@@ -79,6 +79,7 @@ export default function Map({
       <SearchBar
         center={center}
         setOptions={setOptions}
+        setShopName={setShopName}
         mapInstance={mapInstance}
       />
       <NavBar />
