@@ -24,11 +24,9 @@
       background-color: white;
       .eventTime {
         font-size: 1rem;
-        // text-align: center;
       }
       .eventDate {
         font-size: 0.9rem;
-        // text-align: center;
       }
     }
     .names {
@@ -80,6 +78,7 @@
 .button {
   border: none;
   background-color: transparent;
+  color: black;
   cursor: pointer;
   &:disabled {
     color: black;
