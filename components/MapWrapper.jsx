@@ -15,9 +15,6 @@ export default function MapWrapper({
   setOptions,
   setShopName,
 }) {
-  // const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  // console.log(center)
-
   function success(pos) {
     setCenter({
       lat: pos.coords.latitude,
