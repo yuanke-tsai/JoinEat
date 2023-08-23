@@ -59,7 +59,7 @@ export default function MapWrapper({
         setShopName={setShopName}
         setActiveEventId={setActiveEventId}
       >
-        <Marker options={options} />
+        <Marker options={options} setShopName={setShopName} />
       </Map>
     </Wrapper>
   );
