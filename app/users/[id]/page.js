@@ -168,11 +168,11 @@ export default function ProfilePage({ params }) {
       )}
       <div className={styles.infoBar}>
         <div className={styles.info}>
-          <div className={styles.number}>{history?.host_count}</div>
+          <div className={styles.number}>{history?.participant_count}</div>
           <div className={styles.text}>參加聚餐</div>
         </div>
         <div className={styles.info}>
-          <div className={styles.number}>{history?.participant_count}</div>
+          <div className={styles.number}>{history?.host_count}</div>
           <div className={styles.text}>發起聚餐</div>
         </div>
       </div>
