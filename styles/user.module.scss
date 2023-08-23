@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   .titleBar {
     display: flex;
@@ -21,6 +22,22 @@
 
     .buffer {
       width: 19px;
+    }
+  }
+
+  .input {
+    display: none;
+  }
+
+  .imageWrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+
+    .image {
+      object-fit: cover;
     }
   }
 

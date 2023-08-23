@@ -2,6 +2,7 @@
 import Image from "next/image";
 import styles from "../styles/group.module.scss";
 import useEventList from "@/hooks/useEventList";
+import useProfile from "@/hooks/useProfile";
 
 export default function GroupEventsList({
   setActiveEventId,
@@ -19,6 +20,7 @@ export default function GroupEventsList({
       setActiveEventId(eventId);
     }
   };
+
   return (
     <div>
       {eventList !== null &&

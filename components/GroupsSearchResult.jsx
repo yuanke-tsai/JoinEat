@@ -11,6 +11,7 @@ export default function GroupsSearchResult({
         groupsSearchResult?.data?.events.map((event) => (
           <Group
             key={event.event_id}
+            hostId={event.host_id}
             eventName={event.name}
             shop_name={event.shop_name}
             eventTime={event.appointment_time}

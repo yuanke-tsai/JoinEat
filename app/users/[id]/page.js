@@ -14,6 +14,7 @@ import useProfile from "@/hooks/useProfile";
 import useHistory from "@/hooks/useHistory";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 import GroupDetail from "@/components/GroupDetail";
+import Modal from "@/components/Modal";
 
 export default function ProfilePage({ params }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -25,6 +26,9 @@ export default function ProfilePage({ params }) {
   const { mutate } = useSWRConfig();
   const [activeEventId, setActiveEventId] = useState(null);
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [showModal, setShowModal] = useState(false);
+  const inputRef = useRef(null);
+  const [file, setFile] = useState();
 
   function success(pos) {
     setCenter({
@@ -50,10 +54,11 @@ export default function ProfilePage({ params }) {
     setEditable(params.id === getCookie("user_id"));
   }, [params.id]);
 
-  console.log(profile?.image);
-
   return (
     <div className={styles.page}>
+      {showModal && (
+        <Modal userId={profile?.id} file={file} setShowModal={setShowModal} />
+      )}
       <div className={styles.titleBar}>
         <Link href="/" className={styles.button}>
           <LeftArrow />
@@ -73,7 +78,37 @@ export default function ProfilePage({ params }) {
           <div className={styles.buffer} />
         )}
       </div>
-      <Image src="/profileIcon.png" width={80} height={80} />
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/png, image/jpeg, image/jpg"
+        className={styles.input}
+        onChange={(e) => {
+          const { target } = e;
+          const { files } = target;
+
+          if (files === null || files.length === 0) {
+            return;
+          }
+
+          setFile(files[0]);
+        }}
+      />
+      <div className={styles.imageWrapper}>
+        <Image
+          src={profile?.picture ?? "/profileIcon.png"}
+          fill
+          onClick={() => {
+            // trigger the file browser
+            inputRef.current?.click();
+            if (inputRef.current?.value) {
+              inputRef.current.value = "";
+            }
+            setShowModal(true);
+          }}
+          className={styles.image}
+        />
+      </div>
       <div className={styles.name}>{profile?.name}</div>
       {isEditing ? (
         <>
@@ -140,6 +175,7 @@ export default function ProfilePage({ params }) {
         {events &&
           events.map((event) => (
             <Group
+              hostId={event.host_id}
               eventTime={event.appointment_time}
               eventDistance={null}
               setActiveEventId={setActiveEventId}
