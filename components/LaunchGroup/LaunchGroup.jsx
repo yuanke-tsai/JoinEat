@@ -64,12 +64,12 @@ export default function LaunchGroup({
       )
       .then((response) => {
         console.log(response.data);
+        window.location.href = "/";
       })
       .catch((error) => {
         console.log("出現錯誤!");
         console.log(error);
       });
-    window.location.href = "/";
   };
 
   console.log(event_name);
