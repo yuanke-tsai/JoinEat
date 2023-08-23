@@ -22,13 +22,9 @@ export default function Group({
   return (
     <div>
       <button
+        className={styles.button}
         type="submit"
         disabled={isButtonDisable}
-        style={{
-          border: "none",
-          backgroundColor: "transparent",
-          cursor: "pointer",
-        }}
         onClick={handleClickEvent}
       >
         <div type="submit" className={styles.group}>
@@ -47,7 +43,6 @@ export default function Group({
                     {eventTime.hour}:{eventTime.minute}
                   </p>
                 )}
-                {/* {eventTime.hour}:{eventTime.minute} */}
               </div>
               <div className={styles.eventDate}>
                 {eventTime !== undefined && (

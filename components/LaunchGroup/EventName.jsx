@@ -7,9 +7,9 @@ export default function EventName({ eventName, callback }) {
         <div className={styles.timeTitle}>
           <p>活動名稱</p>
           <input
+            className={styles.eventName}
             type="text"
             placeholder="請輸入活動名稱"
-            className={styles.eventName}
             value={eventName}
             onChange={callback}
           />

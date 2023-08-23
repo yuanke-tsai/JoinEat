@@ -1,9 +1,7 @@
 import { useEffect } from "react";
+import Image from "next/image";
 import styles from "../styles/group.module.scss";
 import useQueryShop from "@/hooks/useQueryShop";
-import LaunchGroup from "./LaunchGroup/LaunchGroup";
-import Button from "./Button";
-import Image from "next/image";
 
 export default function GroupQueryShopList({
   setActiveEventId,
@@ -70,7 +68,6 @@ export default function GroupQueryShopList({
                           {event.appointment_time.minute}
                         </p>
                       )}
-                      {/* {eventTime.hour}:{eventTime.minute} */}
                     </div>
                     <div className={styles.eventDate}>
                       {event.appointment_time !== undefined && (
