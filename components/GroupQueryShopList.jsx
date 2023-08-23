@@ -13,7 +13,6 @@ export default function GroupQueryShopList({
   longitude,
   latitudeShop,
   longitudeShop,
-  shop_name,
 }) {
   const { data: eventList, mutate } = useQueryShop(
     access_token,
@@ -58,11 +57,9 @@ export default function GroupQueryShopList({
           />
         ))
       ) : (
-        <LaunchGroup
-          shop_name={shop_name}
-          latitude={latitudeShop}
-          longitude={longitudeShop}
-        />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          成為第一個團長嗎～
+        </div>
       )}
     </div>
   );
